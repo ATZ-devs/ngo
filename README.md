@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NGO Donation Platform
 
-## Getting Started
+Production-oriented donation flow for Next.js App Router with:
 
-First, run the development server:
+- Razorpay for India donations
+- Stripe for international donations
+- Supabase Postgres for donation and webhook state
+- Supabase Storage for receipt PDF storage
+- Resend for donation email delivery
+- PDFKit for dynamic receipt PDF generation
+
+## Backend Flow Summary
+
+1. Client submits donation form to `POST /api/payments/create`.
+2. Backend creates a `pending` donation row in Supabase.
+3. Backend routes payment provider:
+	- `IN` -> Razorpay order
+	- Other countries -> Stripe checkout session
+4. Provider webhooks confirm payment:
+	- `POST /api/payments/razorpay/webhook`
+	- `POST /api/payments/stripe/webhook`
+5. Webhook handler marks donation `paid`, stores event idempotently, and enqueues `receipt_email` job.
+6. Worker endpoint `POST /api/jobs/receipt-email` processes queued jobs:
+	- Generate receipt PDF
+	- Upload receipt PDF to Supabase Storage
+	- Download static NGO PDF from Supabase Storage
+	- Send email with both attachments using Resend
+
+## Setup
+
+1. Copy env template:
+
+```bash
+cp .env.example .env.local
+```
+
+2. Configure all variables in `.env.local`.
+
+3. Initialize Supabase tables:
+
+```sql
+-- Run in Supabase SQL editor
+-- File: supabase/schema.sql
+```
+
+4. Create Supabase storage buckets:
+	- `receipts`
+	- `documents`
+
+5. Upload your static NGO document to the `documents` bucket at:
+	- `ngo-static-document.pdf`
+	- Or change `SUPABASE_STATIC_NGO_DOCUMENT_PATH`
+
+6. Start app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Worker Endpoint and Cron
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Webhook handlers are intentionally lightweight. Job execution is decoupled and triggered via:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `POST /api/jobs/receipt-email`
+- Header: `Authorization: Bearer <DONATION_JOBS_SECRET>`
 
-## Learn More
+For production, invoke this route on a short schedule (for example every minute) with Vercel Cron or any external scheduler.
 
-To learn more about Next.js, take a look at the following resources:
+## Important API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `POST /api/payments/create`
+- `POST /api/payments/razorpay/order`
+- `POST /api/payments/stripe/checkout`
+- `POST /api/payments/razorpay/webhook`
+- `POST /api/payments/stripe/webhook`
+- `POST /api/jobs/receipt-email`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Security Checklist
 
-## Deploy on Vercel
+- Keep all secrets server-side only.
+- Verify webhook signatures.
+- Do not trust frontend success callbacks for payment confirmation.
+- Use idempotent webhook event inserts (`provider + provider_event_id` unique key).
+- Restrict job endpoint using bearer secret.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

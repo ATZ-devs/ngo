@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description: "JeevKutumb Foundation is dedicated to healthcare, education, skill development, women empowerment, and social welfare. Join our mission to create lasting positive change in communities. Donations are tax-deductible under 80G.",
   keywords: "NGO, healthcare, education, donation, tax saving, 80G, women empowerment, social welfare, JeevKutumb Foundation",
   authors: [{ name: "JeevKutumb Foundation" }],
+  metadataBase: new URL("https://jeevkutumbfoundation.org"),
   openGraph: {
     title: "JeevKutumb Foundation - Hope Begins With Us",
     description: "Creating lasting positive change through healthcare, education, and social welfare programs",
@@ -61,11 +62,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Jaini+Purva&display=swap" rel="stylesheet" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} antialiased`}
       >

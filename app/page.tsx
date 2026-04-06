@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
 
   const [currentOffset, setCurrentOffset] = useState(0);
   const [useManualControl, setUseManualControl] = useState(false);

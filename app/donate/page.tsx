@@ -3,9 +3,32 @@
 import Link from "next/link";
 import { useState } from "react";
 
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => { open: () => void };
+  }
+}
+
+async function loadRazorpaySdk(): Promise<boolean> {
+  if (window.Razorpay) {
+    return true;
+  }
+
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function DonatePage() {
   const [citizenship, setCitizenship] = useState("indian");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
+    donationAmount: "500",
     fullName: "",
     dateOfBirth: "",
     email: "",
@@ -24,6 +47,74 @@ export default function DonatePage() {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
+    try {
+      const countryCode = citizenship === "indian" ? "IN" : "US";
+      const amountMajor = Number(formData.donationAmount);
+
+      if (!amountMajor || amountMajor <= 0) {
+        throw new Error("Please enter a valid donation amount.");
+      }
+
+      const response = await fetch("/api/payments/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          donorName: formData.fullName,
+          donorEmail: formData.email,
+          amountMajor,
+          countryCode,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to start payment.");
+      }
+
+      if (data.provider === "stripe") {
+        window.location.href = data.checkoutUrl as string;
+        return;
+      }
+
+      const sdkLoaded = await loadRazorpaySdk();
+      if (!sdkLoaded || !window.Razorpay) {
+        throw new Error("Razorpay SDK failed to load.");
+      }
+
+      const rzp = new window.Razorpay({
+        key: data.keyId,
+        amount: data.amountMinor,
+        currency: data.currency,
+        name: "NGO Donation",
+        description: "Donation payment",
+        order_id: data.orderId,
+        prefill: {
+          name: data.donorName,
+          email: data.donorEmail,
+          contact: formData.mobile,
+        },
+        theme: {
+          color: "#6D8BA3",
+        },
+      });
+
+      rzp.open();
+      setSubmitMessage("Payment initiated. You will receive your receipt by email after payment verification.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Something went wrong.";
+      setSubmitMessage(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -112,7 +203,21 @@ export default function DonatePage() {
             {/* Right Column - 60% width (3/5) Donation Form */}
             <div className="lg:col-span-3">
               <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+
+                  {/* Donation Amount */}
+                  <div>
+                    <label className="block text-sm text-gray-500 mb-2">Donation Amount *</label>
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      value={formData.donationAmount}
+                      onChange={(e) => handleInputChange("donationAmount", e.target.value)}
+                      className="w-full px-0 py-2 border-0 border-b-2 border-gray-300 focus:border-[#6D8BA3] focus:ring-0 bg-transparent text-gray-900 placeholder-gray-400"
+                      required
+                    />
+                  </div>
 
                   {/* Citizenship */}
                   <div>
@@ -348,11 +453,16 @@ export default function DonatePage() {
                   {/* CTA Button */}
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full py-4 bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-lg rounded-full transition-all duration-200 shadow-lg hover:shadow-xl"
                     style={{ backgroundColor: '#F5C518' }}
                   >
-                    Continue To Payment
+                    {isSubmitting ? "Processing..." : "Continue To Payment"}
                   </button>
+
+                  {submitMessage ? (
+                    <p className="text-sm text-gray-700">{submitMessage}</p>
+                  ) : null}
                 </form>
               </div>
             </div>

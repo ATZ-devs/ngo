@@ -1,0 +1,22 @@
+flowchart LR
+A[Client: Donate Form] --> B[POST /api/payments/create]
+B --> C{Country routing on backend}
+C -->|IN| D[Razorpay: create order]
+C -->|Non-IN| E[Stripe: create checkout session]
+D --> F[Client opens Razorpay checkout]
+E --> G[Client redirects to Stripe checkout]
+
+F --> H[Razorpay Webhook]
+G --> I[Stripe Webhook]
+
+H --> J[Verify signature + persist event in Supabase]
+I --> J
+J --> K[Idempotent state transition: pending -> paid]
+K --> L[Enqueue receipt_email job in Supabase]
+
+L --> M[POST /api/jobs/receipt-email]
+M --> N[Generate receipt PDF with PDFKit]
+N --> O[Upload receipt to Supabase Storage]
+O --> P[Download static NGO PDF from Supabase Storage]
+P --> Q[Send email via Resend]
+Q --> R[Mark receipt/email delivered]
