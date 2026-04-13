@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProgramsPage() {
   const programs = [
@@ -7,6 +8,7 @@ export default function ProgramsPage() {
       title: "Healthcare Initiative",
       description: "Providing essential medical services, health education, and preventive care to underserved communities.",
       icon: "🏥",
+      image: "/assets/Healthcare.png",
       color: "from-sky-400 to-teal-500",
       impact: "2,500+ Lives Impacted",
       features: [
@@ -21,6 +23,7 @@ export default function ProgramsPage() {
       title: "Education Program",
       description: "Quality education programs, scholarship opportunities, and learning resources for children and adults.",
       icon: "📚",
+      image: "/assets/Education.png",
       color: "from-blue-400 to-indigo-500",
       impact: "1,200+ Students Educated",
       features: [
@@ -35,6 +38,7 @@ export default function ProgramsPage() {
       title: "Skill Development",
       description: "Training programs to enhance employability and entrepreneurship skills for sustainable livelihoods.",
       icon: "🛠️",
+      image: "/assets/Skill Development.png",
       color: "from-emerald-400 to-green-500",
       impact: "800+ People Trained",
       features: [
@@ -49,6 +53,7 @@ export default function ProgramsPage() {
       title: "Women Empowerment",
       description: "Empowering women through skill development, leadership training, and economic opportunities.",
       icon: "💪",
+      image: "/assets/Women Development.png",
       color: "from-pink-400 to-rose-500",
       impact: "600+ Women Empowered",
       features: [
@@ -56,20 +61,6 @@ export default function ProgramsPage() {
         "Microfinance and entrepreneurship",
         "Leadership and confidence building",
         "Legal awareness and rights education"
-      ]
-    },
-    {
-      id: "youth-development",
-      title: "Youth Development",
-      description: "Programs focused on youth leadership, career guidance, and personal development initiatives.",
-      icon: "🌟",
-      color: "from-orange-400 to-amber-500",
-      impact: "500+ Youth Engaged",
-      features: [
-        "Youth leadership development",
-        "Career counseling and guidance",
-        "Sports and cultural activities",
-        "Mentorship programs"
       ]
     },
     {
@@ -91,6 +82,7 @@ export default function ProgramsPage() {
       title: "Senior Citizen Care",
       description: "Healthcare, social support, and dignity programs for elderly members of our communities.",
       icon: "👴",
+      image: "/assets/Senior Citizen Care.png",
       color: "from-gray-400 to-slate-500",
       impact: "300+ Seniors Cared For",
       features: [
@@ -105,6 +97,7 @@ export default function ProgramsPage() {
       title: "Poverty Relief",
       description: "Direct assistance programs to help families meet basic needs and break the cycle of poverty.",
       icon: "🤝",
+      image: "/assets/Poverty Relief.png",
       color: "from-teal-400 to-cyan-500",
       impact: "1,000+ Families Assisted",
       features: [
@@ -133,6 +126,7 @@ export default function ProgramsPage() {
       title: "Environmental Protection",
       description: "Conservation initiatives, awareness programs, and sustainable development projects.",
       icon: "🌱",
+      image: "/assets/Environmental Protection.png",
       color: "from-green-400 to-emerald-500",
       impact: "Green Initiatives Active",
       features: [
@@ -147,6 +141,7 @@ export default function ProgramsPage() {
       title: "Mental Health Awareness",
       description: "Mental health support, counseling services, and awareness programs for community wellbeing.",
       icon: "🧠",
+      image: "/assets/Mental Health Awareness.png",
       color: "from-indigo-400 to-blue-500",
       impact: "Mental Wellness Support",
       features: [
@@ -199,12 +194,25 @@ export default function ProgramsPage() {
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {programs.map((program, index) => (
               <div key={program.id} className="card-program group">
-                <div className={`h-32 bg-gradient-to-br ${program.color} flex items-center justify-center relative overflow-hidden`}>
-                  <div className="text-center text-white">
-                    <div className="text-4xl mb-2">{program.icon}</div>
-                    <h3 className="text-xl font-bold">{program.title}</h3>
-                  </div>
+                <div className={`h-48 bg-gradient-to-br ${program.color} flex items-center justify-center relative overflow-hidden`}>
+                  {program.image ? (
+                    <Image
+                      src={program.image}
+                      alt={program.title}
+                      fill
+                      className="object-contain p-4"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="text-center text-white">
+                      <div className="text-4xl mb-2">{program.icon}</div>
+                      <h3 className="text-xl font-bold">{program.title}</h3>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-200"></div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                    <h3 className="text-xl font-bold text-white">{program.title}</h3>
+                  </div>
                 </div>
 
                 <div className="p-6">
@@ -232,7 +240,7 @@ export default function ProgramsPage() {
 
                   <div className="flex justify-between items-center">
                     <Link
-                      href={`/programs/${program.id}`}
+                      href={`/${program.id === 'mental-health-awareness' ? 'mental-health' : program.id.replace('-', '-')}`}
                       className="btn-outline"
                     >
                       Learn More
@@ -291,7 +299,7 @@ export default function ProgramsPage() {
               {programs.slice(0, 6).map((program) => (
                 <Link
                   key={program.id}
-                  href={`/programs/${program.id}`}
+                  href={`/${program.id === 'mental-health-awareness' ? 'mental-health' : program.id}`}
                   className="bg-white text-teal-700 px-4 py-2 rounded-full font-medium hover:bg-teal-600 hover:text-white transition-colors border border-teal-200 hover:border-teal-600"
                 >
                   {program.icon} {program.title}

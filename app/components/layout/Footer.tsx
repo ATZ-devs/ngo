@@ -9,12 +9,12 @@ export default function Footer() {
           {/* Foundation Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 relative">
+              <div className="w-10 h-10 relative">
                 <Image
-                  src="/image.png"
+                  src="/logo-icon.png"
                   alt="JeevKutumb Foundation Logo"
-                  width={48}
-                  height={48}
+                  width={40}
+                  height={40}
                   className="object-contain"
                 />
               </div>
@@ -29,7 +29,7 @@ export default function Footer() {
               Join our mission to build stronger, healthier communities.
             </p>
             <p className="text-sm text-gray-400">
-              &quot;The best way to find yourself is to lose yourself in the service of others.&quot; - Mahatma Gandhi
+              &quot;The sole meaning of life is to serve humanity.&quot; - Leo Tolstoy
             </p>
           </div>
 
@@ -58,8 +58,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/get-involved" className="hover:text-[#5a7a96] transition-colors">
-                  Get Involved
+                <Link href="/contact" className="hover:text-[#5a7a96] transition-colors">
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -81,8 +81,8 @@ export default function Footer() {
                 <svg className="w-5 h-5 text-[#5a7a96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <a href="tel:+919821075418" className="hover:text-[#5a7a96] transition-colors">
-                  +91 9821075418
+                <a href="tel:+917710075418" className="hover:text-[#5a7a96] transition-colors">
+                  +91 77100 75418
                 </a>
               </div>
             </div>
@@ -117,8 +117,8 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-[#5a7a96] transition-colors"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 192 192">
-                    <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.35 61.6848C97.3879 61.6848 97.4258 61.6848 97.4637 61.6848C105.994 61.746 113.027 64.3065 118.525 69.2772C123.508 73.7684 126.26 79.6667 126.727 86.865C118.171 85.8383 108.88 85.8998 101.168 88.9883C89.181 93.1557 82.68 101.05 82.68 110.994C82.68 126.207 94.430 138.134 110.065 138.134C118.244 138.134 125.637 135.617 131.572 131.045C137.618 126.382 141.537 119.683 142.613 111.809C144.334 108.114 145.207 104.05 145.207 99.6667C145.207 94.509 144.161 91.818 141.537 88.9883ZM110.065 123.317C102.171 123.317 97.4969 118.445 97.4969 110.994C97.4969 107.47 99.0615 102.856 106.404 100.174C109.267 99.1905 113.058 98.7247 117.018 98.7247C119.896 98.7247 122.938 99.0547 125.887 99.6982C124.613 113.618 118.805 123.317 110.065 123.317Z"/>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.96-.065-1.186.408-2.26 1.33-3.022.812-.67 1.927-1.073 3.222-1.166 1.077-.076 2.072.007 2.975.247.002-.643-.034-1.257-.108-1.838-.222-1.726-.882-2.453-1.705-2.685-.444-.126-.958-.132-1.487-.019-.592.127-1.089.39-1.36.722l-1.677-1.39c.609-.735 1.516-1.267 2.614-1.503.88-.189 1.782-.183 2.606.019 1.652.403 2.853 1.69 3.192 4.322.083.645.123 1.347.119 2.103.459.24.888.52 1.282.842 1.172.958 1.923 2.28 2.175 3.828.342 2.097-.1 4.478-2.122 6.458-1.839 1.802-4.142 2.63-7.434 2.654zM8.894 16.343c.04.692.397 1.154.989 1.538.653.423 1.503.617 2.403.571 1.08-.058 1.904-.462 2.518-1.225.534-.665.893-1.504 1.074-2.505-.647-.181-1.343-.28-2.085-.239-1.837.132-3.533.692-4.9 1.86z"/>
                   </svg>
                 </a>
               </div>
@@ -130,19 +130,8 @@ export default function Footer() {
         <div className="border-t border-gray-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 JeevKutumb Foundation. All rights reserved. |
+              © {new Date().getFullYear()} JeevKutumb Foundation. All rights reserved. |
               <span className="ml-1">Donations are tax-deductible under section 80G</span>
-            </div>
-            <div className="flex space-x-6 text-gray-400 text-sm">
-              <Link href="/privacy" className="hover:text-[#5a7a96] transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-[#5a7a96] transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/transparency" className="hover:text-[#5a7a96] transition-colors">
-                Transparency
-              </Link>
             </div>
           </div>
         </div>

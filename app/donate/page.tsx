@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 declare global {
@@ -120,52 +121,37 @@ export default function DonatePage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="bg-[#6D8BA3] section-padding relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-[500px] flex items-center">
+        {/* Full background image */}
+        <Image
+          src="/assets/MultipleHands.png"
+          alt="Diverse hands stacked together"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#6D8BA3]/70" />
+
         {/* Decorative Circles */}
         <div className="absolute left-0 top-0 w-96 h-96 rounded-full border-2 border-white/20 -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute left-20 top-20 w-64 h-64 rounded-full border border-white/10 -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute left-10 bottom-10 w-32 h-32 rounded-full border border-white/15"></div>
 
-        <div className="section-container relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Half */}
-            <div className="space-y-8">
-              <h1 className="text-6xl font-serif leading-tight">
-                <span className="block text-transparent text-stroke text-white">Help people</span>
-                <span className="block text-transparent text-stroke text-white">Save Tax</span>
-              </h1>
-              <div>
-                <Link
-                  href="#form"
-                  className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#6D8BA3] font-semibold rounded-full transition-all duration-200 text-lg bg-transparent"
-                >
-                  How to Save Tax?
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Half - Hands Illustration Placeholder */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-md h-96 bg-white/20 rounded-xl flex items-center justify-center border-2 border-white/30">
-                <div className="text-center text-white/70">
-                  <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  <p className="text-sm">Diverse hands stacked together</p>
-                  <p className="text-xs mt-1">(Unity illustration placeholder)</p>
-                </div>
-              </div>
+        <div className="section-container relative z-10 py-20">
+          <div className="max-w-2xl">
+            <h1 className="text-6xl font-serif leading-tight text-white mb-8" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+              Help people<br />Save Tax
+            </h1>
+            <div>
+              <Link
+                href="#form"
+                className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#6D8BA3] font-semibold rounded-full transition-all duration-200 text-lg bg-transparent"
+              >
+                How to Save Tax?
+              </Link>
             </div>
           </div>
         </div>
-
-        {/* CSS for outline text */}
-        <style jsx>{`
-          .text-stroke {
-            -webkit-text-stroke: 2px white;
-            -webkit-text-fill-color: transparent;
-          }
-        `}</style>
       </section>
 
       {/* Main Content - Two Column Layout */}
@@ -183,7 +169,7 @@ export default function DonatePage() {
                   <span className="text-gray-900">Program</span>
                 </h2>
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Providing medicines to those who cannot afford basic treatment, organising blood donation and medical check-up camps, conducting health awareness programmes, and organising vaccination drives where needed.
                 </p>
               </div>
 
@@ -195,7 +181,7 @@ export default function DonatePage() {
                   <span className="text-gray-900">Program</span>
                 </h2>
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.
+                  Providing essential learning materials such as stationery, books, and school supplies to students in need, supporting school fee payments for children from financially constrained backgrounds, and offering scholarships to deserving and committed students.
                 </p>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -14,7 +15,7 @@ export default function About() {
                 <h1 className="heading-section text-gray-900 text-left mb-4">About Us</h1>
                 <div className="w-20 h-1 bg-gray-800 mb-8"></div>
                 <p className="text-lg text-gray-700 text-center leading-relaxed font-serif">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  Jeevkutumb Foundation was established in 2025, but its roots trace back over three decades of personal, hands-on involvement in social causes by its founding members. Long before it became a registered entity, the individuals behind Jeevkutumb were actively engaged in blood donation drives across Maharashtra, educational support for underprivileged children, animal welfare initiatives including feeding and caring for stray animals, and disaster relief efforts during emergencies like floods. Their dedication was never tied to recognition - they served because they believed in the power of compassion and community. With the formal launch of Jeevkutumb Foundation, these years of grassroots experience, relationships, and commitment have now been channeled into a structured mission. Today, the Foundation carries forward that same spirit - with greater reach, more resources, and a deeper resolve to create lasting impact in the lives of the people and communities who need it most.
                 </p>
               </div>
 
@@ -40,7 +41,7 @@ export default function About() {
           {/* Full Width Mission Paragraph */}
           <div className="mt-12">
             <p className="text-lg text-gray-700 text-center leading-relaxed font-serif max-w-6xl mx-auto">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+              At Jeevkutumb Foundation, our mission is to uplift and empower communities through sustainable, inclusive, and impactful initiatives. We work across key areas - including education, healthcare, women empowerment, elderly care, animal welfare, and environmental protection - with the belief that real change begins at the grassroots level. Guided by over three decades of hands-on service by our founding members, we strive to bring dignity, opportunity, and support to the most vulnerable. Through compassion, collaboration, and action, we aim to build a world where every individual, regardless of their background, has the chance to lead a life of purpose and well-being. Jeevkutumb is not just a foundation - it is a family committed to serving humanity.
             </p>
           </div>
         </div>
@@ -64,30 +65,27 @@ export default function About() {
               </p>
             </div>
 
-            {/* Middle Column - Team Photo Placeholder */}
+            {/* Middle Column - Director Photo */}
             <div className="flex justify-center">
-              <div className="w-64 h-64 bg-white rounded-xl flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <p className="text-sm font-medium">Team Member Photo</p>
-                  <p className="text-xs">(Placeholder)</p>
+              <div className="w-64 bg-white rounded-xl overflow-hidden">
+                <div className="relative w-full h-72">
+                  <Image
+                    src="/assets/Director.png"
+                    alt="Director - JeevKutumb Foundation"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4 text-center">
+                  <h4 className="text-gray-900 font-semibold">Director</h4>
+                  <p className="text-gray-500 text-sm">JeevKutumb Foundation</p>
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Team Photo Placeholder */}
+            {/* Right Column */}
             <div className="flex justify-center">
-              <div className="w-64 h-64 bg-white rounded-xl flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <p className="text-sm font-medium">Team Member Photo</p>
-                  <p className="text-xs">(Placeholder)</p>
-                </div>
-              </div>
+              <div className="w-64 h-64 bg-white/10 rounded-xl" />
             </div>
           </div>
         </div>

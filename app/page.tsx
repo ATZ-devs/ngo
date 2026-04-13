@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
@@ -9,6 +10,16 @@ export default function Home() {
 
   const [currentOffset, setCurrentOffset] = useState(0);
   const [useManualControl, setUseManualControl] = useState(false);
+
+  // Hero carousel state
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroSlide((prev) => (prev === 0 ? 1 : 0));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Continuous auto-scroll functionality with CSS animation
   useEffect(() => {
@@ -72,6 +83,7 @@ export default function Home() {
   const programCards = [
     {
       title: "Healthcare",
+      image: "/assets/Healthcare.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -80,6 +92,7 @@ export default function Home() {
     },
     {
       title: "Education",
+      image: "/assets/Education.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
@@ -88,6 +101,7 @@ export default function Home() {
     },
     {
       title: "Skill Development",
+      image: "/assets/Skill Development.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -96,6 +110,7 @@ export default function Home() {
     },
     {
       title: "Women Empowerment",
+      image: "/assets/Women Development.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -120,6 +135,7 @@ export default function Home() {
     },
     {
       title: "Senior Citizen Care",
+      image: "/assets/Senior Citizen Care.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -128,6 +144,7 @@ export default function Home() {
     },
     {
       title: "Poverty Relief",
+      image: "/assets/Poverty Relief.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
@@ -144,6 +161,7 @@ export default function Home() {
     },
     {
       title: "Environmental Protection",
+      image: "/assets/Environmental Protection.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -152,6 +170,7 @@ export default function Home() {
     },
     {
       title: "Mental Health Awareness",
+      image: "/assets/Mental Health Awareness.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -178,38 +197,77 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Hero Section */}
-      <section className="hero-gradient text-white section-padding">
-        <div className="section-container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[600px]">
-            {/* Left Half - Content */}
-            <div className="space-y-8">
-              <h1 className="heading-hero text-gray-900 leading-tight">
-                Giving is another way of saving on tax.
-              </h1>
-              <div>
-                <Link
-                  href="/donate"
-                  className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-lg"
-                >
-                  How to Save Tax?
-                </Link>
-              </div>
-            </div>
+      {/* Hero Carousel */}
+      <section className="relative w-full h-[600px] md:h-[700px] overflow-hidden">
+        {/* Slide 1 - Full image with button */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${heroSlide === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+        >
+          <div className="absolute inset-0 bg-[#6a8ea8]" />
 
-            {/* Right Half - Image Placeholder */}
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-md h-96 bg-white/20 rounded-xl flex items-center justify-center border-2 border-white/30">
-                <div className="text-center text-white/70">
-                  <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <p className="text-sm">Photo of children sitting on a rock</p>
-                  <p className="text-xs mt-1">(Placeholder)</p>
-                </div>
-              </div>
-            </div>
+          {/* Decorative circles and lines */}
+          <div className="absolute left-0 top-0 w-96 h-96 rounded-full border-2 border-white/15 -translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute right-10 top-8 w-64 h-64 rounded-full border border-white/10" />
+          <div className="absolute left-1/4 top-4 w-40 h-40 rounded-full border border-white/10" />
+          <div className="absolute right-0 bottom-0 w-80 h-80 rounded-full border-2 border-white/15 translate-x-1/3 translate-y-1/3" />
+          <div className="absolute left-10 bottom-16 w-48 h-48 rounded-full border border-white/10" />
+          <div className="absolute right-1/4 bottom-8 w-32 h-32 rounded-full border border-white/8" />
+          <div className="absolute left-1/3 top-10 w-[1px] h-32 bg-white/10 rotate-[30deg]" />
+          <div className="absolute right-1/3 bottom-20 w-[1px] h-40 bg-white/10 -rotate-[20deg]" />
+
+          <Image
+            src="/assets/Home Page 2.png"
+            alt="Giving is another way of saving on tax"
+            fill
+            className="object-contain object-center z-[1]"
+            priority
+          />
+          <div className="absolute inset-0 flex items-end justify-center z-10 pb-20 md:pb-28">
+            <Link
+              href="/donate"
+              className="inline-flex items-center px-10 py-4 bg-[#5a7a96] text-white font-semibold rounded-full text-lg hover:bg-[#4a6a86] transition-all duration-200 shadow-lg"
+            >
+              How to Save Tax?
+            </Link>
           </div>
+        </div>
+
+        {/* Slide 2 - Full image with "Hope Begins With Us" + Donate Now */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${heroSlide === 1 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+        >
+          <Image
+            src="/assets/Home Page 1.jpeg"
+            alt="Hope Begins With Us"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center px-4">
+            <h1 className="text-5xl md:text-7xl font-serif text-white mb-8 leading-tight" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+              Hope Begins<br />With Us
+            </h1>
+            <Link
+              href="/donate"
+              className="inline-flex items-center px-10 py-4 bg-[#5a7a96] text-white font-semibold rounded-full text-lg hover:bg-[#4a6a86] transition-all duration-200 shadow-lg"
+            >
+              Donate Now
+            </Link>
+          </div>
+        </div>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+          <button
+            onClick={() => setHeroSlide(0)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${heroSlide === 0 ? "bg-white scale-110" : "bg-white/50"}`}
+            aria-label="Slide 1"
+          />
+          <button
+            onClick={() => setHeroSlide(1)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${heroSlide === 1 ? "bg-white scale-110" : "bg-white/50"}`}
+            aria-label="Slide 2"
+          />
         </div>
       </section>
 
@@ -236,10 +294,20 @@ export default function Home() {
               {/* First set of cards */}
               {programCards.map((card, index) => (
                 <div key={`first-${index}`} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden">
-                  <div className="h-full flex items-center justify-center">
-                    {card.icon}
-                  </div>
-                  <div className="absolute bottom-6 left-6">
+                  {card.image ? (
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      className="object-cover"
+                      sizes="320px"
+                    />
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      {card.icon}
+                    </div>
+                  )}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 pt-12">
                     <h3 className="text-xl font-semibold text-white">{card.title}</h3>
                   </div>
                 </div>
@@ -248,10 +316,20 @@ export default function Home() {
               {/* Duplicate set of cards for seamless loop */}
               {programCards.map((card, index) => (
                 <div key={`second-${index}`} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden">
-                  <div className="h-full flex items-center justify-center">
-                    {card.icon}
-                  </div>
-                  <div className="absolute bottom-6 left-6">
+                  {card.image ? (
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      className="object-cover"
+                      sizes="320px"
+                    />
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      {card.icon}
+                    </div>
+                  )}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 pt-12">
                     <h3 className="text-xl font-semibold text-white">{card.title}</h3>
                   </div>
                 </div>
@@ -288,13 +366,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gandhi Quote Section */}
+      {/* Tolstoy Quote Section */}
       <section className="section-padding bg-gray-50">
         <div className="section-container">
           <div className="max-w-4xl mx-auto">
             <blockquote className="quote-gandhi">
-              &ldquo;The best way to find yourself is to lose yourself in the service of others.&rdquo;
-              <footer className="text-[#5a7a96] font-semibold mt-6 text-right text-lg">— Mahatma Gandhi</footer>
+              &ldquo;The sole meaning of life is to serve humanity.&rdquo;
+              <footer className="text-[#5a7a96] font-semibold mt-6 text-right text-lg">— Leo Tolstoy</footer>
             </blockquote>
           </div>
         </div>
@@ -317,7 +395,7 @@ export default function Home() {
               </svg>
               <span>DONATE NOW</span>
             </Link>
-            <Link href="/get-involved" className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] px-6 py-3 rounded-full font-semibold transition-all duration-200">
+            <Link href="/contact" className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] px-6 py-3 rounded-full font-semibold transition-all duration-200">
               Get Involved
             </Link>
           </div>

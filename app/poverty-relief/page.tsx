@@ -1,15 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function HealthcarePage() {
+export default function PovertyReliefPage() {
   const initiatives = [
-    "Providing medicines to those who cannot afford basic treatment",
-    "Organising blood donation camps",
-    "Organising medical check-up camps",
-    "Supporting individuals who have no family or caregivers",
-    "Conducting basic health awareness programmes",
-    "Organising vaccination drives where needed",
-    "Providing basic medical aid and care for animals",
+    "Providing food to individuals and families in need",
+    "Distributing medicines and basic essentials to those who cannot afford them",
+    "Supporting people struggling to meet day-to-day needs",
+    "Extending help in small, immediate ways wherever required",
   ];
 
   return (
@@ -17,8 +14,8 @@ export default function HealthcarePage() {
       {/* Hero Section */}
       <section className="relative min-h-[400px] flex items-center overflow-hidden">
         <Image
-          src="/assets/Healthcare.png"
-          alt="Healthcare Initiative"
+          src="/assets/Poverty Relief.png"
+          alt="Poverty Relief Initiative"
           fill
           className="object-cover"
           priority
@@ -26,7 +23,7 @@ export default function HealthcarePage() {
         <div className="absolute inset-0 bg-[#5a7a96]/70" />
         <div className="section-container relative z-10 py-20">
           <h1 className="text-5xl md:text-6xl font-serif text-white leading-tight" style={{ fontFamily: 'var(--font-playfair-display)' }}>
-            Healthcare
+            Poverty Relief
           </h1>
         </div>
       </section>
@@ -35,7 +32,7 @@ export default function HealthcarePage() {
       <section className="section-padding">
         <div className="section-container">
           <div className="max-w-4xl mx-auto">
-            <h2 className="heading-section text-gray-900 mb-8">Our Healthcare Program</h2>
+            <h2 className="heading-section text-gray-900 mb-8">Our Poverty Relief Program</h2>
             <ul className="space-y-4">
               {initiatives.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-lg text-gray-700 leading-relaxed">
@@ -51,12 +48,12 @@ export default function HealthcarePage() {
       {/* CTA */}
       <section className="bg-[#5a7a96] text-white section-padding">
         <div className="section-container text-center">
-          <h2 className="heading-md text-white mb-6">Support Our Healthcare Mission</h2>
+          <h2 className="heading-md text-white mb-6">Support Our Poverty Relief Mission</h2>
           <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
-            Your donation can help us provide life-saving healthcare services to those who need it most.
+            Your donation can help us provide immediate relief to those in need.
           </p>
           <Link href="/donate" className="inline-flex items-center px-10 py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-lg">
-            DONATE FOR HEALTHCARE
+            DONATE FOR POVERTY RELIEF
           </Link>
         </div>
       </section>

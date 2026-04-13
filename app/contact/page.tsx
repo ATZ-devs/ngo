@@ -117,10 +117,10 @@ export default function ContactPage() {
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">Phone Number</h3>
                       <p className="text-gray-600 mb-3">Call us directly to speak with our team</p>
                       <a
-                        href="tel:+919821075418"
+                        href="tel:+917710075418"
                         className="text-teal-600 font-medium hover:text-teal-700 transition-colors text-lg"
                       >
-                        +91 98210 75418
+                        +91 77100 75418
                       </a>
                       <p className="text-sm text-gray-500 mt-1">Available Monday - Saturday, 9 AM - 6 PM</p>
                     </div>
