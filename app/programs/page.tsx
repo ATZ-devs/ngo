@@ -171,9 +171,7 @@ export default function ProgramsPage() {
               <Link href="/donate" className="btn-donate">
                 Support Our Programs
               </Link>
-              <Link href="/contact" className="btn-secondary bg-white/10 border-white text-white hover:bg-white hover:text-teal-600">
-                Get Involved
-              </Link>
+
             </div>
           </div>
         </div>
@@ -354,7 +352,7 @@ export default function ProgramsPage() {
                   Join our team of dedicated volunteers. Share your skills,
                   time, and passion to make a direct impact in communities.
                 </p>
-                <Link href="/contact?inquiry=volunteer" className="btn-secondary">
+                <Link href="/volunteering" className="btn-secondary">
                   Join as Volunteer
                 </Link>
               </div>
@@ -372,7 +370,7 @@ export default function ProgramsPage() {
                   Partner with us for CSR initiatives, employee volunteering,
                   or collaborative programs that create lasting community impact.
                 </p>
-                <Link href="/contact?inquiry=partnership" className="btn-outline">
+                <Link href="/corporate-partnerships" className="btn-outline">
                   Explore Partnership
                 </Link>
               </div>

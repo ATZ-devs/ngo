@@ -62,7 +62,7 @@ export default function Home() {
       const newOffset = prev + 344; // Move backward
       // Keep within reasonable bounds
       if (newOffset > 0) {
-        return -3440; // Jump to end
+        return -3096; // Jump to end
       }
       return newOffset;
     });
@@ -73,7 +73,7 @@ export default function Home() {
     setCurrentOffset(prev => {
       const newOffset = prev - 344; // Move forward
       // Keep within reasonable bounds
-      if (newOffset < -3784) {
+      if (newOffset < -3440) {
         return 0; // Jump to beginning
       }
       return newOffset;
@@ -117,14 +117,7 @@ export default function Home() {
         </svg>
       )
     },
-    {
-      title: "Youth Development",
-      icon: (
-        <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      )
-    },
+
     {
       title: "Child Welfare",
       icon: (
@@ -192,7 +185,7 @@ export default function Home() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-3784px); /* -(344px * 11) = total width of 11 cards */
+            transform: translateX(-3440px); /* -(344px * 10) = total width of 10 cards */
           }
         }
       `}</style>
@@ -224,7 +217,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 flex items-end justify-center z-10 pb-20 md:pb-28">
             <Link
-              href="/donate"
+              href="/tax-savings"
               className="inline-flex items-center px-10 py-4 bg-[#5a7a96] text-white font-semibold rounded-full text-lg hover:bg-[#4a6a86] transition-all duration-200 shadow-lg"
             >
               How to Save Tax?
@@ -288,7 +281,7 @@ export default function Home() {
               ref={carouselRef}
               className="flex gap-6 pb-4 infinite-scroll"
               style={{
-                width: 'calc(344px * 22)', // 22 cards (11 x 2) for seamless loop
+                width: 'calc(344px * 20)', // 20 cards (10 x 2) for seamless loop
               }}
             >
               {/* First set of cards */}
@@ -369,11 +362,15 @@ export default function Home() {
       {/* Tolstoy Quote Section */}
       <section className="section-padding bg-gray-50">
         <div className="section-container">
-          <div className="max-w-4xl mx-auto">
-            <blockquote className="quote-gandhi">
-              &ldquo;The sole meaning of life is to serve humanity.&rdquo;
-              <footer className="text-[#5a7a96] font-semibold mt-6 text-right text-lg">— Leo Tolstoy</footer>
-            </blockquote>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 md:px-14 py-12 text-center">
+              <div className="text-7xl text-[#5a7a96]/20 font-serif leading-none select-none mb-2">&ldquo;</div>
+              <p className="text-2xl md:text-3xl text-gray-700 italic font-medium leading-relaxed" style={{ fontFamily: "'Jaini Purva', serif" }}>
+                The sole meaning of life is to serve humanity.
+              </p>
+              <div className="w-10 h-px bg-[#5a7a96]/40 mx-auto mt-8 mb-5"></div>
+              <p className="text-[#5a7a96] font-semibold text-lg tracking-wide">— Leo Tolstoy</p>
+            </div>
           </div>
         </div>
       </section>
@@ -395,9 +392,7 @@ export default function Home() {
               </svg>
               <span>DONATE NOW</span>
             </Link>
-            <Link href="/contact" className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] px-6 py-3 rounded-full font-semibold transition-all duration-200">
-              Get Involved
-            </Link>
+
           </div>
         </div>
       </section>

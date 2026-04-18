@@ -3,10 +3,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-[60]">
@@ -48,7 +59,7 @@ export default function Header() {
               {/* Search Bar and Social Media */}
               <div className="flex items-center space-x-4">
                 {/* Search Bar - Pill shaped, light */}
-                <div className="hidden md:flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 px-4 py-1.5 hover:bg-white/25 transition-all duration-200">
+                <form onSubmit={handleSearch} className="hidden md:flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 px-4 py-1.5 hover:bg-white/25 transition-all duration-200">
                   <input
                     type="text"
                     placeholder="Search..."
@@ -56,10 +67,12 @@ export default function Header() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <svg className="w-4 h-4 text-white/80 hover:text-white cursor-pointer transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
+                  <button type="submit">
+                    <svg className="w-4 h-4 text-white/80 hover:text-white cursor-pointer transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+                </form>
 
                 {/* Social Media Icons */}
                 <div className="flex items-center space-x-3">
@@ -132,9 +145,9 @@ export default function Header() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div className="absolute left-0 mt-2 w-48 bg-white shadow-xl rounded-md border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60]">
-                  <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Contact Us</Link>
-                  <Link href="/donate" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Donate</Link>
+                <div className="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-md border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60]">
+                  <Link href="/volunteering" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Volunteering &amp; Internships</Link>
+                  <Link href="/corporate-partnerships" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Corporate Partnerships</Link>
                 </div>
               </div>
             </nav>
@@ -193,16 +206,23 @@ export default function Header() {
                   What We Do
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/volunteering"
                   className="block px-3 py-2 text-gray-700 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Get Involved
+                  Volunteering &amp; Internships
+                </Link>
+                <Link
+                  href="/corporate-partnerships"
+                  className="block px-3 py-2 text-gray-700 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Corporate Partnerships
                 </Link>
 
                 {/* Mobile Search */}
                 <div className="px-3 py-2">
-                  <div className="flex items-center bg-gray-50 rounded-md border border-gray-300 px-3 py-2">
+                  <form onSubmit={handleSearch} className="flex items-center bg-gray-50 rounded-md border border-gray-300 px-3 py-2">
                     <input
                       type="text"
                       placeholder="Search..."
@@ -210,10 +230,12 @@ export default function Header() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <svg className="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
+                    <button type="submit">
+                      <svg className="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>

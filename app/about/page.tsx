@@ -29,10 +29,14 @@ export default function About() {
             {/* Right Column - 40% width (2/5) */}
             <div className="lg:col-span-2">
               <div className="bg-[#6D8BA3] rounded-2xl p-12 h-96 flex flex-col items-center justify-center text-center">
-                {/* Handshake/Helping Hand Icon */}
-                <svg className="w-20 h-20 text-white mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-2a2 2 0 112 2m-2 0c0 .276.045.544.129.8M12 12.5v-2a2 2 0 114 0v2m-4 0c0-.276-.045-.544-.129-.8M12 12.5V14m6.5-1.5V14m0-2.5v-2a2 2 0 00-2-2m2 2c0 .276.045.544.129.8M19.5 12.5V14" />
-                </svg>
+                {/* Handshake Icon */}
+                <Image
+                  src="/assets/handshake.png"
+                  alt="Handshake"
+                  width={80}
+                  height={80}
+                  className="mb-6 invert"
+                />
                 <h3 className="text-2xl font-medium text-white">Help Someone</h3>
               </div>
             </div>

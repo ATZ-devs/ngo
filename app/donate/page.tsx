@@ -41,13 +41,31 @@ export default function DonatePage() {
     country: "INDIA",
     panNumber: ""
   });
-  const [acceptTerms, setAcceptTerms] = useState(true);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
+
+    // Auto-fill city and state based on pincode
+    if (field === "pincode" && value.length === 6 && /^\d{6}$/.test(value)) {
+      fetch(`https://api.postalpincode.in/pincode/${value}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data?.[0]?.Status === "Success" && data[0].PostOffice?.length > 0) {
+            const postOffice = data[0].PostOffice[0];
+            setFormData(prev => ({
+              ...prev,
+              city: postOffice.District || prev.city,
+              state: postOffice.State || prev.state
+            }));
+          }
+        })
+        .catch(() => {
+          // Silently fail - user can manually enter city/state
+        });
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -144,7 +162,7 @@ export default function DonatePage() {
             </h1>
             <div>
               <Link
-                href="#form"
+                href="/tax-savings"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#6D8BA3] font-semibold rounded-full transition-all duration-200 text-lg bg-transparent"
               >
                 How to Save Tax?
@@ -160,30 +178,99 @@ export default function DonatePage() {
           <div className="grid lg:grid-cols-5 gap-16 items-start">
 
             {/* Left Column - 40% width (2/5) Program Info */}
-            <div className="lg:col-span-2 space-y-12">
-              {/* First Program Block */}
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold">
-                  <span className="text-gray-900">Our</span>{" "}
-                  <span className="text-[#6D8BA3] italic">Healthcare</span>{" "}
-                  <span className="text-gray-900">Program</span>
-                </h2>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                  Providing medicines to those who cannot afford basic treatment, organising blood donation and medical check-up camps, conducting health awareness programmes, and organising vaccination drives where needed.
-                </p>
+            <div className="lg:col-span-2 space-y-8">
+              <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+                Our <span className="text-[#6D8BA3] italic">Programs</span>
+              </h2>
+
+              <div className="space-y-5">
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🏥</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Healthcare</h3>
+                    <p className="text-sm text-gray-600">Free medical camps, health awareness drives, and medicine distribution for underserved communities.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">📚</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Education</h3>
+                    <p className="text-sm text-gray-600">Scholarships, learning materials, and school fee support for underprivileged students.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🛠️</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Skill Development</h3>
+                    <p className="text-sm text-gray-600">Vocational training and digital literacy programs for sustainable livelihoods.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">💪</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Women Empowerment</h3>
+                    <p className="text-sm text-gray-600">Self-help groups, microfinance, and leadership training for women.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">👶</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Child Welfare</h3>
+                    <p className="text-sm text-gray-600">Child protection, nutritional support, and educational programs.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">👴</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Senior Citizen Care</h3>
+                    <p className="text-sm text-gray-600">Health checkups, social engagement, and home care services for the elderly.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🤝</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Poverty Relief</h3>
+                    <p className="text-sm text-gray-600">Food security, emergency assistance, and livelihood generation for families in need.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🆘</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Disaster Relief</h3>
+                    <p className="text-sm text-gray-600">Emergency rescue, shelter, food, and medical aid during natural disasters.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🌱</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Environmental Protection</h3>
+                    <p className="text-sm text-gray-600">Tree plantation, waste management, and sustainability initiatives.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  <span className="text-xl">🧠</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Mental Health Awareness</h3>
+                    <p className="text-sm text-gray-600">Counseling services, awareness workshops, and community support groups.</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Second Program Block */}
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold">
-                  <span className="text-gray-900">Our</span>{" "}
-                  <span className="text-[#6D8BA3] italic">Education</span>{" "}
-                  <span className="text-gray-900">Program</span>
-                </h2>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                  Providing essential learning materials such as stationery, books, and school supplies to students in need, supporting school fee payments for children from financially constrained backgrounds, and offering scholarships to deserving and committed students.
-                </p>
-              </div>
+              <Link href="/programs" className="inline-flex items-center text-[#6D8BA3] hover:text-[#4a6a86] font-semibold transition-colors">
+                View All Programs
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
 
             {/* Right Column - 60% width (3/5) Donation Form */}
@@ -369,68 +456,35 @@ export default function DonatePage() {
                     </p>
                   </div>
 
-                  {/* Disclaimer Paragraphs */}
-                  <div className="space-y-3">
-                    <p className="text-sm text-gray-500">
-                      By proceeding, you agree to our terms of service and privacy policy. All donations are processed securely through encrypted channels... <Link href="#" className="text-[#6D8BA3] hover:underline">Read More</Link>
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      JeevKutumb Foundation is authorized to issue 80G receipts for tax exemption. Your donation will be used for the intended charitable purposes... <Link href="#" className="text-[#6D8BA3] hover:underline">Read More</Link>
-                    </p>
-                  </div>
-
-                  {/* Declaration Checkbox */}
-                  <div className="flex items-start space-x-3">
-                    <input
-                      type="checkbox"
-                      id="declaration"
-                      checked={acceptTerms}
-                      onChange={(e) => setAcceptTerms(e.target.checked)}
-                      className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1"
-                    />
-                    <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">
-                      I hereby declare that I am a citizen of India, making this donation out of my own funds. The information provided is accurate and complete... <Link href="#" className="text-[#6D8BA3] hover:underline">Read More</Link>
-                    </label>
-                  </div>
+                  {/* Indian Citizen Declaration */}
+                  {citizenship === "indian" && (
+                    <div className="flex items-start space-x-3">
+                      <input
+                        type="checkbox"
+                        id="declaration"
+                        defaultChecked
+                        className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1 flex-shrink-0"
+                      />
+                      <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">
+                        I hereby declare that I am a citizen of India, making this donation out of my own funds. The information provided above is correct to the best of my knowledge. I know that all further communications will be done on contact details provided above.
+                      </label>
+                    </div>
+                  )}
 
                   {/* Payment Methods Strip */}
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
-                    <div className="flex justify-center items-center space-x-6 mb-4">
-                      {/* RuPay Logo */}
-                      <div className="w-16 h-10 bg-white rounded border flex items-center justify-center p-1">
-                        <svg viewBox="0 0 200 60" className="w-full h-full">
-                          <rect width="200" height="60" fill="#0066CC"/>
-                          <text x="100" y="35" fontFamily="Arial, sans-serif" fontSize="14" fontWeight="bold" fill="white" textAnchor="middle">RuPay</text>
-                        </svg>
+                  <div className="bg-[#fdf8ec] border border-yellow-200 rounded-lg px-6 py-5 text-center">
+                    <div className="flex justify-center items-center gap-3 mb-3">
+                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                        <Image src="/assets/rupay-logo.png" alt="RuPay" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-
-                      {/* UPI Logo */}
-                      <div className="w-16 h-10 bg-white rounded border flex items-center justify-center p-1">
-                        <svg viewBox="0 0 100 60" className="w-full h-full">
-                          <rect width="100" height="60" fill="#FF6600"/>
-                          <text x="50" y="25" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="bold" fill="white" textAnchor="middle">UPI</text>
-                          <text x="50" y="40" fontFamily="Arial, sans-serif" fontSize="6" fill="white" textAnchor="middle">UNIFIED PAYMENTS</text>
-                          <circle cx="15" cy="15" r="8" fill="white"/>
-                          <circle cx="85" cy="45" r="8" fill="white"/>
-                        </svg>
+                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                        <Image src="/assets/upi-logo.png" alt="UPI" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-
-                      {/* VISA Logo */}
-                      <div className="w-16 h-10 bg-white rounded border flex items-center justify-center p-1">
-                        <svg viewBox="0 0 100 32" className="w-full h-full">
-                          <rect width="100" height="32" fill="white"/>
-                          <path d="M37.5 8.5L32.1 23.5h-4.8L24.1 13.2c-.3-.8-.6-1.1-1.5-1.4-1.5-.5-3.9-.9-6-.2v-.1L17.5 8.5h8.8c1.1 0 2.1.7 2.4 1.9l2.2 11.6L36.3 8.5h5.2zM67.8 23.5h-4.9L67 8.5h4.5c1 0 1.9.6 2.3 1.5l4.1 13.5h-4.6l-.8-2.1H67L67.8 23.5zm1.7-5.4h3.4l-1.7-4.4L69.5 18.1zM58.1 12.9c0-1.3-1.3-2.7-4.1-2.7-1.8 0-3.8.6-3.8 2s1.4 1.9 2.5 2.3c1.8.6 2.1.9 2.1 1.4s-.8 1.1-2.1 1.1c-1.8 0-2.8-.8-2.8-.8l-.5 2.9s1.2.5 3.1.5c2.8 0 4.4-1.4 4.4-3.1 0-1-.6-1.8-2.7-2.4-1.3-.4-2.1-.7-2.1-1.2s.6-1 1.9-1c1.1 0 2.2.4 2.2.4l.5-2.9s-1.1-.4-2.6-.4c-2.7 0-4.4 1.5-4.4 3.6 0 2.7 3.7 2.8 3.7 4.2 0 .5-.4.9-1.3.9-.9 0-2.2-.4-2.2-.4l-.5 3s1 .4 2.8.4c2.6 0 4.3-1.3 4.3-3.1-.1-1.7-3.9-3-3.9-4.4z" fill="#1A1F71"/>
-                        </svg>
+                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                        <Image src="/assets/visa-logo.png" alt="Visa" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-
-                      {/* Mastercard Logo */}
-                      <div className="w-16 h-10 bg-white rounded border flex items-center justify-center p-1">
-                        <svg viewBox="0 0 100 60" className="w-full h-full">
-                          <circle cx="35" cy="30" r="20" fill="#FF5F00"/>
-                          <circle cx="65" cy="30" r="20" fill="#EB001B"/>
-                          <path d="M50 15c-3.3 2.4-5.5 6.1-5.5 10.5s2.2 8.1 5.5 10.5c3.3-2.4 5.5-6.1 5.5-10.5S53.3 17.4 50 15z" fill="#FF5F00"/>
-                          <text x="50" y="50" fontFamily="Arial, sans-serif" fontSize="8" fill="#000" textAnchor="middle">mastercard</text>
-                        </svg>
+                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                        <Image src="/assets/Mastercard/mastercard-logo.png" alt="Mastercard" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
                     </div>
                     <p className="text-sm text-gray-600">We accept all major payment methods</p>

@@ -175,7 +175,7 @@ body {
   /* Quote Styling */
   .quote-gandhi {
     @apply text-2xl md:text-3xl text-gray-700 italic font-medium text-center
-           border-l-4 border-[#5a7a96] pl-8 bg-white py-8 rounded-r-lg shadow-sm;
+           py-8 rounded-lg shadow-sm;
     font-family: 'Jaini Purva', serif;
     line-height: 1.4;
   }
