@@ -9,7 +9,25 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileWhatWeDoOpen, setMobileWhatWeDoOpen] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const router = useRouter();
+
+  const whatWeDoPages = [
+    { title: "Healthcare", href: "/healthcare" },
+    { title: "Education", href: "/education" },
+    { title: "Skill Development", href: "/skill-development" },
+    { title: "Women Empowerment", href: "/women-empowerment" },
+    { title: "Child Welfare", href: "/child-welfare" },
+    { title: "Senior Citizen Care", href: "/senior-citizen-care" },
+    { title: "Poverty Relief", href: "/poverty-relief" },
+    { title: "Disaster Relief", href: "/disaster-relief" },
+    { title: "Environmental Protection", href: "/environmental-protection" },
+    { title: "Mental Health Awareness", href: "/mental-health" },
+  ];
+
+  const suggestions = searchQuery.trim().length > 0
+    ? whatWeDoPages.filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    : [];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,20 +78,37 @@ export default function Header() {
               {/* Search Bar and Social Media */}
               <div className="flex items-center space-x-4">
                 {/* Search Bar - Pill shaped, light */}
-                <form onSubmit={handleSearch} className="hidden md:flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 px-4 py-1.5 hover:bg-white/25 transition-all duration-200">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="bg-transparent text-sm focus:outline-none px-2 py-1 w-36 text-white placeholder-white/70"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button type="submit">
-                    <svg className="w-4 h-4 text-white/80 hover:text-white cursor-pointer transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </button>
-                </form>
+                <div className="hidden md:block relative">
+                  <form onSubmit={handleSearch} className="flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 px-4 py-1.5 hover:bg-white/25 transition-all duration-200">
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="bg-transparent text-sm focus:outline-none px-2 py-1 w-36 text-white placeholder-white/70"
+                      value={searchQuery}
+                      onChange={(e) => { setSearchQuery(e.target.value); setShowSuggestions(true); }}
+                      onFocus={() => setShowSuggestions(true)}
+                      onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                    />
+                    <button type="submit">
+                      <svg className="w-4 h-4 text-white/80 hover:text-white cursor-pointer transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </button>
+                  </form>
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="absolute top-full mt-1 left-0 w-64 bg-white rounded-xl shadow-xl border border-gray-100 z-[80] overflow-hidden">
+                      {suggestions.map(s => (
+                        <button
+                          key={s.href}
+                          className="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96] text-sm transition-colors"
+                          onMouseDown={() => { router.push(s.href); setSearchQuery(""); setShowSuggestions(false); }}
+                        >
+                          {s.title}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
                 {/* Social Media Icons */}
                 <div className="flex items-center space-x-3">

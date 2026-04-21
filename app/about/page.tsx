@@ -14,7 +14,7 @@ export default function About() {
               <div>
                 <h1 className="heading-section text-gray-900 text-left mb-4">About Us</h1>
                 <div className="w-20 h-1 bg-gray-800 mb-8"></div>
-                <p className="text-lg text-gray-700 text-center leading-relaxed font-serif">
+                <p className="text-lg text-gray-700 leading-relaxed font-serif">
                   Jeevkutumb Foundation was established in 2025, but its roots trace back over three decades of personal, hands-on involvement in social causes by its founding members. Long before it became a registered entity, the individuals behind Jeevkutumb were actively engaged in blood donation drives across Maharashtra, educational support for underprivileged children, animal welfare initiatives including feeding and caring for stray animals, and disaster relief efforts during emergencies like floods. Their dedication was never tied to recognition - they served because they believed in the power of compassion and community. With the formal launch of Jeevkutumb Foundation, these years of grassroots experience, relationships, and commitment have now been channeled into a structured mission. Today, the Foundation carries forward that same spirit - with greater reach, more resources, and a deeper resolve to create lasting impact in the lives of the people and communities who need it most.
                 </p>
               </div>
@@ -44,7 +44,7 @@ export default function About() {
 
           {/* Full Width Mission Paragraph */}
           <div className="mt-12">
-            <p className="text-lg text-gray-700 text-center leading-relaxed font-serif max-w-6xl mx-auto">
+            <p className="text-lg text-gray-700 leading-relaxed font-serif max-w-6xl mx-auto">
               At Jeevkutumb Foundation, our mission is to uplift and empower communities through sustainable, inclusive, and impactful initiatives. We work across key areas - including education, healthcare, women empowerment, elderly care, animal welfare, and environmental protection - with the belief that real change begins at the grassroots level. Guided by over three decades of hands-on service by our founding members, we strive to bring dignity, opportunity, and support to the most vulnerable. Through compassion, collaboration, and action, we aim to build a world where every individual, regardless of their background, has the chance to lead a life of purpose and well-being. Jeevkutumb is not just a foundation - it is a family committed to serving humanity.
             </p>
           </div>

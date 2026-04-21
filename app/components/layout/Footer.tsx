@@ -29,7 +29,7 @@ export default function Footer() {
               Join our mission to build stronger, healthier communities.
             </p>
             <p className="text-sm text-gray-400">
-              &quot;The sole meaning of life is to serve humanity.&quot; - Leo Tolstoy
+              &quot;Be kind whenever possible. It is always possible.&quot; - Dalai Lama
             </p>
           </div>
 
