@@ -89,7 +89,6 @@ export default function About() {
 
             {/* Right Column */}
             <div className="flex justify-center">
-              <div className="w-64 h-64 bg-white/10 rounded-xl" />
             </div>
           </div>
         </div>

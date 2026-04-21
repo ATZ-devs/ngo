@@ -185,93 +185,117 @@ export default function DonatePage() {
               </h2>
 
               <div className="space-y-5">
+                {/* Healthcare */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🏥</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Healthcare</h3>
                     <p className="text-sm text-gray-600">Free medical camps, health awareness drives, and medicine distribution for underserved communities.</p>
                   </div>
                 </div>
 
+                {/* Education */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">📚</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3 1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Education</h3>
                     <p className="text-sm text-gray-600">Scholarships, learning materials, and school fee support for underprivileged students.</p>
                   </div>
                 </div>
 
+                {/* Skill Development */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🛠️</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Skill Development</h3>
                     <p className="text-sm text-gray-600">Vocational training and digital literacy programs for sustainable livelihoods.</p>
                   </div>
                 </div>
 
+                {/* Women Empowerment */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">💪</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13 11.33V8h3V4h-8v4h3v3.33C7.26 12.11 5 14.84 5 18h14c0-3.16-2.26-5.89-6-6.67zM7.08 16c.56-1.71 2.21-3 4.92-3s4.36 1.29 4.92 3H7.08z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Women Empowerment</h3>
                     <p className="text-sm text-gray-600">Self-help groups, microfinance, and leadership training for women.</p>
                   </div>
                 </div>
 
+                {/* Child Welfare */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">👶</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+                    <path d="M 6.5 9 C 7.3 9 8 8.3 8 7.5 S 7.3 6 6.5 6 S 5 6.7 5 7.5 S 5.7 9 6.5 9 z M 6.5 10 C 5.1 10 4 11.1 4 12.5 L 4 16 L 9 16 L 9 12.5 C 9 11.1 7.9 10 6.5 10 z M 17.5 9 C 18.3 9 19 8.3 19 7.5 S 18.3 6 17.5 6 S 16 6.7 16 7.5 S 16.7 9 17.5 9 z M 17.5 10 C 16.1 10 15 11.1 15 12.5 L 15 16 L 20 16 L 20 12.5 C 20 11.1 18.9 10 17.5 10 z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Child Welfare</h3>
                     <p className="text-sm text-gray-600">Child protection, nutritional support, and educational programs.</p>
                   </div>
                 </div>
 
+                {/* Senior Citizen Care */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">👴</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Senior Citizen Care</h3>
                     <p className="text-sm text-gray-600">Health checkups, social engagement, and home care services for the elderly.</p>
                   </div>
                 </div>
 
+                {/* Poverty Relief */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🤝</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Poverty Relief</h3>
                     <p className="text-sm text-gray-600">Food security, emergency assistance, and livelihood generation for families in need.</p>
                   </div>
                 </div>
 
+                {/* Disaster Relief */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🆘</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Disaster Relief</h3>
                     <p className="text-sm text-gray-600">Emergency rescue, shelter, food, and medical aid during natural disasters.</p>
                   </div>
                 </div>
 
+                {/* Environmental Protection */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🌱</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20c9 0 13-10 13-10C18.64 6.43 12 9 12 9c3-4 9-3.29 9-3.29C17.45 4.55 13 5 9 9.3L7 7c0-2 1-4 6-6C5 1 2 7 3 11c0 0 1-4 8-4 0 0-2 2.86-2 6 0 0 1-5 7-8 0 0 0 3-2 5s-8 2-8 2c1.5 3.67 6.5 4 6.5 4z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Environmental Protection</h3>
                     <p className="text-sm text-gray-600">Tree plantation, waste management, and sustainability initiatives.</p>
                   </div>
                 </div>
 
+                {/* Mental Health Awareness */}
                 <div className="flex items-start space-x-3">
-                  <span className="text-xl">🧠</span>
+                  <svg className="w-5 h-5 text-[#6D8BA3] mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/>
+                  </svg>
                   <div>
                     <h3 className="font-semibold text-gray-900">Mental Health Awareness</h3>
                     <p className="text-sm text-gray-600">Counseling services, awareness workshops, and community support groups.</p>
                   </div>
                 </div>
               </div>
-
-              <Link href="/programs" className="inline-flex items-center text-[#6D8BA3] hover:text-[#4a6a86] font-semibold transition-colors">
-                View All Programs
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
             </div>
 
             {/* Right Column - 60% width (3/5) Donation Form */}
@@ -380,13 +404,12 @@ export default function DonatePage() {
 
                   {/* Address */}
                   <div>
-                    <label className="block text-sm text-gray-500 mb-2">Address *</label>
+                    <label className="block text-sm text-gray-500 mb-2">Address</label>
                     <input
                       type="text"
                       value={formData.address}
                       onChange={(e) => handleInputChange('address', e.target.value)}
                       className="w-full px-0 py-2 border-0 border-b-2 border-gray-300 focus:border-[#6D8BA3] focus:ring-0 bg-transparent text-gray-900 placeholder-gray-400"
-                      required
                     />
                     <p className="text-sm text-gray-500 mt-1">
                       Entering Pincode will autofill City and State
@@ -396,13 +419,12 @@ export default function DonatePage() {
                   {/* Pincode and City */}
                   <div className="grid lg:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm text-gray-500 mb-2">Pincode *</label>
+                      <label className="block text-sm text-gray-500 mb-2">Pincode</label>
                       <input
                         type="text"
                         value={formData.pincode}
                         onChange={(e) => handleInputChange('pincode', e.target.value)}
                         className="w-full px-0 py-2 border-0 border-b-2 border-gray-300 focus:border-[#6D8BA3] focus:ring-0 bg-transparent text-gray-900 placeholder-gray-400"
-                        required
                       />
                     </div>
                     <div>

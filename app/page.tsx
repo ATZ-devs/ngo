@@ -83,6 +83,7 @@ export default function Home() {
   const programCards = [
     {
       title: "Healthcare",
+      href: "/healthcare",
       image: "/assets/Healthcare.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,6 +93,7 @@ export default function Home() {
     },
     {
       title: "Education",
+      href: "/education",
       image: "/assets/Education.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,6 +103,7 @@ export default function Home() {
     },
     {
       title: "Skill Development",
+      href: "/skill-development",
       image: "/assets/Skill Development.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,6 +113,7 @@ export default function Home() {
     },
     {
       title: "Women Empowerment",
+      href: "/women-empowerment",
       image: "/assets/Women Development.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,6 +124,8 @@ export default function Home() {
 
     {
       title: "Child Welfare",
+      href: "/child-welfare",
+      image: "/assets/Child Welfare.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -128,6 +134,7 @@ export default function Home() {
     },
     {
       title: "Senior Citizen Care",
+      href: "/senior-citizen-care",
       image: "/assets/Senior Citizen Care.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,6 +144,7 @@ export default function Home() {
     },
     {
       title: "Poverty Relief",
+      href: "/poverty-relief",
       image: "/assets/Poverty Relief.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,6 +154,8 @@ export default function Home() {
     },
     {
       title: "Disaster Relief",
+      href: "/disaster-relief",
+      image: "/assets/Disaster Relief.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -154,6 +164,7 @@ export default function Home() {
     },
     {
       title: "Environmental Protection",
+      href: "/environmental-protection",
       image: "/assets/Environmental Protection.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,6 +174,7 @@ export default function Home() {
     },
     {
       title: "Mental Health Awareness",
+      href: "/mental-health",
       image: "/assets/Mental Health Awareness.png",
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -286,7 +298,7 @@ export default function Home() {
             >
               {/* First set of cards */}
               {programCards.map((card, index) => (
-                <div key={`first-${index}`} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden">
+                <Link key={`first-${index}`} href={card.href} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden block hover:opacity-90 transition-opacity">
                   {card.image ? (
                     <Image
                       src={card.image}
@@ -303,12 +315,12 @@ export default function Home() {
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 pt-12">
                     <h3 className="text-xl font-semibold text-white">{card.title}</h3>
                   </div>
-                </div>
+                </Link>
               ))}
 
               {/* Duplicate set of cards for seamless loop */}
               {programCards.map((card, index) => (
-                <div key={`second-${index}`} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden">
+                <Link key={`second-${index}`} href={card.href} className="flex-none w-80 h-80 bg-[#5a7a96] rounded-xl relative overflow-hidden block hover:opacity-90 transition-opacity">
                   {card.image ? (
                     <Image
                       src={card.image}
@@ -325,7 +337,7 @@ export default function Home() {
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 pt-12">
                     <h3 className="text-xl font-semibold text-white">{card.title}</h3>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 

@@ -1,7 +1,9 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function ProgramsPage() {
+  notFound();
   const programs = [
     {
       id: "healthcare",

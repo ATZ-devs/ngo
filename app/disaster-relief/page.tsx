@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function DisasterReliefPage() {
   const initiatives = [
@@ -11,8 +12,16 @@ export default function DisasterReliefPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="bg-[#5a7a96] section-padding">
-        <div className="section-container">
+      <section className="relative min-h-[400px] flex items-center overflow-hidden">
+        <Image
+          src="/assets/Disaster Relief.png"
+          alt="Disaster Relief"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#5a7a96]/70" />
+        <div className="section-container relative z-10 py-20">
           <h1 className="text-5xl md:text-6xl font-serif text-white leading-tight" style={{ fontFamily: 'var(--font-playfair-display)' }}>
             Disaster Relief
           </h1>
