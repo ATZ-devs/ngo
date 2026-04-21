@@ -13,6 +13,7 @@ export function getSupabaseAdmin(): ReturnType<typeof createClient<Database, "pu
   }
 
   if (!supabaseAdminClient) {
+    console.log("Creating Supabase admin client for:", env.supabaseUrl);
     supabaseAdminClient = createClient<Database, "public", any>(
       env.supabaseUrl,
       env.supabaseServiceRoleKey,

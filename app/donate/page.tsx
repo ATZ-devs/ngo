@@ -129,6 +129,7 @@ export default function DonatePage() {
       rzp.open();
       setSubmitMessage("Payment initiated. You will receive your receipt by email after payment verification.");
     } catch (error) {
+      console.error("Donation error:", error);
       const message = error instanceof Error ? error.message : "Something went wrong.";
       setSubmitMessage(message);
     } finally {

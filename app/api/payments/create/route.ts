@@ -78,6 +78,7 @@ export async function POST(req: NextRequest) {
       checkoutUrl: session.url,
     });
   } catch (error) {
+    console.error("Payment creation error:", error);
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.flatten() }, { status: 400 });
     }

@@ -13,26 +13,32 @@ interface CreateDonationInput {
 }
 
 export async function createPendingDonation(input: CreateDonationInput): Promise<DonationRow> {
-  const supabaseAdmin = getSupabaseAdmin();
-  const { data, error } = await supabaseAdmin
-    .from("donations")
-    .insert({
-      donor_name: input.donorName,
-      donor_email: input.donorEmail,
-      amount_minor: input.amountMinor,
-      currency: input.currency,
-      country_code: input.countryCode,
-      provider: input.provider,
-      status: "pending",
-    })
-    .select("*")
-    .single();
+  try {
+    const supabaseAdmin = getSupabaseAdmin();
+    const { data, error } = await supabaseAdmin
+      .from("donations")
+      .insert({
+        donor_name: input.donorName,
+        donor_email: input.donorEmail,
+        amount_minor: input.amountMinor,
+        currency: input.currency,
+        country_code: input.countryCode,
+        provider: input.provider,
+        status: "pending",
+      })
+      .select("*")
+      .single();
 
-  if (error || !data) {
-    throw new Error(`Failed to create donation: ${error?.message || "Unknown error"}`);
+    if (error || !data) {
+      console.error("Supabase error details:", error);
+      throw new Error(`Failed to create donation: ${error?.message || "Unknown error"}`);
+    }
+
+    return data as DonationRow;
+  } catch (err) {
+    console.error("Full error in createPendingDonation:", err);
+    throw err;
   }
-
-  return data as DonationRow;
 }
 
 export async function setProviderOrderId(donationId: string, providerOrderId: string): Promise<void> {
