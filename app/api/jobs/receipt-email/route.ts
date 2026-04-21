@@ -21,8 +21,13 @@ function getReceiptNumber(donationId: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Check Vercel Cron header OR Bearer token
   const auth = req.headers.get("authorization") || "";
-  if (auth !== `Bearer ${env.donationJobsSecret}`) {
+  const vercelCronSecret = req.headers.get("x-vercel-cron");
+  
+  // Allow if Vercel Cron (internal) OR Bearer token matches
+  if (!vercelCronSecret && auth !== `Bearer ${env.donationJobsSecret}`) {
+    console.log("Unauthorized: Missing valid auth header");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
