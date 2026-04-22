@@ -5,20 +5,66 @@ import { env } from "@/lib/config/env";
 import { createPendingDonation, setProviderOrderId } from "@/lib/donations/repository";
 import { createRazorpayOrder } from "@/lib/payments/razorpay";
 import { createStripeCheckoutSession } from "@/lib/payments/stripe";
+import { consumeRateLimit } from "@/lib/security/rate-limit";
+
+const MAX_DONATION_AMOUNT = 500000;
 
 const createPaymentSchema = z.object({
-  donorName: z.string().min(2).max(120),
-  donorEmail: z.string().email(),
-  amountMajor: z.number().positive(),
-  countryCode: z.string().length(2),
+  donorName: z
+    .string()
+    .trim()
+    .min(2)
+    .max(120)
+    .regex(/^[A-Za-z0-9 .,'-]+$/, "Name contains unsupported characters."),
+  donorEmail: z.string().trim().email().max(254),
+  amountMajor: z.coerce
+    .number()
+    .finite()
+    .positive()
+    .max(MAX_DONATION_AMOUNT)
+    .refine((value) => Number.isInteger(value * 100), "Amount supports up to 2 decimal places."),
+  countryCode: z.string().trim().toUpperCase().regex(/^[A-Z]{2}$/),
 });
+
+function getRequestIp(req: NextRequest): string {
+  const forwardedFor = req.headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0].trim();
+  }
+
+  return req.headers.get("x-real-ip") || "unknown";
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rateLimit = consumeRateLimit({
+      key: `payments:create:${getRequestIp(req)}`,
+      limit: 20,
+      windowMs: 60_000,
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again shortly." },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.retryAfterSeconds),
+          },
+        }
+      );
+    }
+
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
+    }
+
     const input = createPaymentSchema.parse(body);
 
-    const isIndia = input.countryCode.toUpperCase() === "IN";
+    const isIndia = input.countryCode === "IN";
     const provider = isIndia ? "razorpay" : "stripe";
     const currency = isIndia ? "INR" : "USD";
     const amountMinor = Math.round(input.amountMajor * 100);
@@ -28,7 +74,7 @@ export async function POST(req: NextRequest) {
       donorEmail: input.donorEmail,
       amountMinor,
       currency,
-      countryCode: input.countryCode.toUpperCase(),
+      countryCode: input.countryCode,
       provider,
     });
 
@@ -83,7 +129,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.flatten() }, { status: 400 });
     }
 
+    console.error("Payment creation failed.");
     const message = error instanceof Error ? error.message : "Unable to create payment";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: process.env.NODE_ENV === "development" ? message : "Unable to create payment",
+      },
+      { status: 500 }
+    );
   }
 }

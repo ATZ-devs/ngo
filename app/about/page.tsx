@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 
 export default function About() {
@@ -65,7 +64,7 @@ export default function About() {
             <div className="space-y-6">
               <h3 className="heading-md text-white font-bold">Managing Committee</h3>
               <p className="text-white/90 text-lg leading-relaxed">
-                Jeevkutumb's leadership collective comprising of Regional and Functional Directors who provide strategic direction to organizational objectives.
+                Jeevkutumb&apos;s leadership collective comprising of Regional and Functional Directors who provide strategic direction to organizational objectives.
               </p>
             </div>
 

@@ -192,7 +192,7 @@ export default function ProgramsPage() {
 
           {/* Programs Grid */}
           <div className="grid lg:grid-cols-2 gap-8 mb-16">
-            {programs.map((program, index) => (
+            {programs.map((program) => (
               <div key={program.id} className="card-program group">
                 <div className={`h-48 bg-gradient-to-br ${program.color} flex items-center justify-center relative overflow-hidden`}>
                   {program.image ? (

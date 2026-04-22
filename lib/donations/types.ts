@@ -1,3 +1,5 @@
+import type { Json } from "@/lib/supabase/types";
+
 export type PaymentProvider = "razorpay" | "stripe";
 export type DonationStatus = "pending" | "paid" | "failed";
 export type JobStatus = "queued" | "processing" | "completed" | "failed";
@@ -22,9 +24,10 @@ export interface PaymentEventInput {
   provider: PaymentProvider;
   providerEventId: string;
   providerPaymentId: string;
+  providerOrderId?: string;
   donationId: string;
   amountMinor: number;
   currency: string;
   paidAt: string;
-  payload: Record<string, unknown>;
+  payload: Json;
 }

@@ -10,6 +10,7 @@ import {
 } from "@/lib/donations/repository";
 import { sendDonationEmail } from "@/lib/email/send-donation-email";
 import { generateReceiptPdf } from "@/lib/receipts/generate-receipt-pdf";
+import { timingSafeEqualStrings } from "@/lib/security/crypto";
 import { downloadStaticNgoDocument, uploadReceiptPdf } from "@/lib/storage/supabase-storage";
 
 export const runtime = "nodejs";
@@ -20,14 +21,32 @@ function getReceiptNumber(donationId: string): string {
   return `RCP-${date}-${suffix}`;
 }
 
+function parseBearerToken(authorization: string): string | null {
+  if (!authorization.startsWith("Bearer ")) {
+    return null;
+  }
+
+  const token = authorization.slice("Bearer ".length).trim();
+  return token.length > 0 ? token : null;
+}
+
+function hasValidJobSecret(token: string): boolean {
+  const validSecrets = [env.donationJobsSecret, env.cronSecret].filter(
+    (value): value is string => Boolean(value)
+  );
+
+  if (validSecrets.length === 0) {
+    return false;
+  }
+
+  return validSecrets.some((secret) => timingSafeEqualStrings(secret, token));
+}
+
 export async function POST(req: NextRequest) {
-  // Check Vercel Cron header OR Bearer token
-  const auth = req.headers.get("authorization") || "";
-  const vercelCronSecret = req.headers.get("x-vercel-cron");
-  
-  // Allow if Vercel Cron (internal) OR Bearer token matches
-  if (!vercelCronSecret && auth !== `Bearer ${env.donationJobsSecret}`) {
-    console.log("Unauthorized: Missing valid auth header");
+  const authorization = req.headers.get("authorization") || "";
+  const token = parseBearerToken(authorization);
+
+  if (!token || !hasValidJobSecret(token)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

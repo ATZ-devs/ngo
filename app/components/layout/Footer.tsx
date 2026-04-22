@@ -13,8 +13,8 @@ export default function Footer() {
                 <Image
                   src="/logo-icon.png"
                   alt="JeevKutumb Foundation Logo"
-                  width={40}
-                  height={40}
+                  fill
+                  sizes="40px"
                   className="object-contain"
                 />
               </div>

@@ -3,6 +3,7 @@ import "server-only";
 import { Resend } from "resend";
 
 import { env } from "@/lib/config/env";
+import { escapeHtml } from "@/lib/security/crypto";
 
 let resendClient: Resend | null = null;
 
@@ -34,6 +35,8 @@ export async function sendDonationEmail(input: SendDonationEmailInput): Promise<
     throw new Error("Missing DONATION_EMAIL_FROM.");
   }
 
+  const donorName = escapeHtml(input.donorName);
+  const transactionId = escapeHtml(input.transactionId);
   const amountText = `${(input.amountMinor / 100).toFixed(2)} ${input.currency}`;
 
   const response = await resend.emails.send({
@@ -41,7 +44,7 @@ export async function sendDonationEmail(input: SendDonationEmailInput): Promise<
     to: [input.donorEmail],
     subject: "Thank you for your donation - Jeevkutumb Foundation",
     html: `
-      <p>Dear ${input.donorName},</p>
+      <p>Dear ${donorName},</p>
 
       <p>Thank you for your generous contribution to Jeevkutumb Foundation.</p>
 
@@ -50,7 +53,7 @@ export async function sendDonationEmail(input: SendDonationEmailInput): Promise<
       <p>Please find attached your donation receipt along with our 80G certificate, which may be used to claim applicable tax benefits while filing your income tax return.</p>
 
       <p><strong>Amount:</strong> ${amountText}<br/>
-      <strong>Transaction ID:</strong> ${input.transactionId}</p>
+      <strong>Transaction ID:</strong> ${transactionId}</p>
 
       <p>We are sincerely grateful for your trust and support.</p>
 

@@ -13,32 +13,52 @@ interface CreateDonationInput {
 }
 
 export async function createPendingDonation(input: CreateDonationInput): Promise<DonationRow> {
-  try {
-    const supabaseAdmin = getSupabaseAdmin();
-    const { data, error } = await supabaseAdmin
-      .from("donations")
-      .insert({
-        donor_name: input.donorName,
-        donor_email: input.donorEmail,
-        amount_minor: input.amountMinor,
-        currency: input.currency,
-        country_code: input.countryCode,
-        provider: input.provider,
-        status: "pending",
-      })
-      .select("*")
-      .single();
+  const supabaseAdmin = getSupabaseAdmin();
+  const { data, error } = await supabaseAdmin
+    .from("donations")
+    .insert({
+      donor_name: input.donorName,
+      donor_email: input.donorEmail,
+      amount_minor: input.amountMinor,
+      currency: input.currency,
+      country_code: input.countryCode,
+      provider: input.provider,
+      status: "pending",
+    })
+    .select("*")
+    .single();
 
-    if (error || !data) {
-      console.error("Supabase error details:", error);
-      throw new Error(`Failed to create donation: ${error?.message || "Unknown error"}`);
+  if (error || !data) {
+    const errorParts: string[] = [];
+
+    if (error && typeof error === "object") {
+      if ("message" in error && typeof error.message === "string" && error.message) {
+        errorParts.push(error.message);
+      }
+
+      if ("details" in error && typeof error.details === "string" && error.details) {
+        errorParts.push(error.details);
+      }
+
+      if ("code" in error && typeof error.code === "string" && error.code) {
+        errorParts.push(`code=${error.code}`);
+      }
+
+      if ("hint" in error && typeof error.hint === "string" && error.hint) {
+        errorParts.push(error.hint);
+      }
+
+      if ("cause" in error && error.cause instanceof Error && error.cause.message) {
+        errorParts.push(`cause=${error.cause.message}`);
+      }
     }
 
-    return data as DonationRow;
-  } catch (err) {
-    console.error("Full error in createPendingDonation:", err);
-    throw err;
+    const errorMessage = errorParts.length > 0 ? errorParts.join(" | ") : "Unknown Supabase error";
+
+    throw new Error(`Failed to create donation record: ${errorMessage}`);
   }
+
+  return data as DonationRow;
 }
 
 export async function setProviderOrderId(donationId: string, providerOrderId: string): Promise<void> {
@@ -74,7 +94,7 @@ export async function processPaidWebhook(input: PaymentEventInput): Promise<{ pr
 
   const { data: donation, error: donationError } = await supabaseAdmin
     .from("donations")
-    .select("id,status")
+    .select("id,status,provider,provider_order_id,amount_minor,currency")
     .eq("id", input.donationId)
     .single();
 
@@ -86,14 +106,29 @@ export async function processPaidWebhook(input: PaymentEventInput): Promise<{ pr
     return { processed: false };
   }
 
+  if (donation.provider !== input.provider) {
+    throw new Error("Payment provider mismatch for donation.");
+  }
+
+  const normalizedIncomingCurrency = input.currency.toUpperCase();
+  if (donation.currency.toUpperCase() !== normalizedIncomingCurrency) {
+    throw new Error("Payment currency mismatch for donation.");
+  }
+
+  if (donation.amount_minor !== input.amountMinor) {
+    throw new Error("Payment amount mismatch for donation.");
+  }
+
+  if (!input.providerOrderId || !donation.provider_order_id || donation.provider_order_id !== input.providerOrderId) {
+    throw new Error("Provider order ID mismatch for donation.");
+  }
+
   const { error: updateError } = await supabaseAdmin
     .from("donations")
     .update({
       status: "paid",
       paid_at: input.paidAt,
       provider_payment_id: input.providerPaymentId,
-      amount_minor: input.amountMinor,
-      currency: input.currency,
     })
     .eq("id", input.donationId)
     .eq("status", "pending");
@@ -116,6 +151,23 @@ export async function processPaidWebhook(input: PaymentEventInput): Promise<{ pr
   }
 
   return { processed: true };
+}
+
+export async function markQueuedReceiptJobCompleted(donationId: string): Promise<void> {
+  const supabaseAdmin = getSupabaseAdmin();
+  const { error } = await supabaseAdmin
+    .from("processing_jobs")
+    .update({
+      status: "completed",
+      last_error: null,
+    })
+    .eq("donation_id", donationId)
+    .eq("job_type", "receipt_email")
+    .in("status", ["queued", "processing"]);
+
+  if (error) {
+    throw new Error(`Failed to complete queued receipt job: ${error.message}`);
+  }
 }
 
 export async function getQueuedJobs(limit = 10): Promise<Array<{ id: string; donation_id: string }>> {

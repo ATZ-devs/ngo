@@ -4,6 +4,8 @@ import crypto from "crypto";
 import Razorpay from "razorpay";
 
 import { env } from "@/lib/config/env";
+import { timingSafeEqualStrings } from "@/lib/security/crypto";
+import type { Json } from "@/lib/supabase/types";
 
 let razorpayClient: Razorpay | null = null;
 
@@ -51,32 +53,38 @@ export function verifyRazorpayWebhook(rawBody: string, signature: string): boole
     throw new Error("Missing RAZORPAY_WEBHOOK_SECRET.");
   }
 
+  if (!signature) {
+    return false;
+  }
+
   const expected = crypto
     .createHmac("sha256", env.razorpayWebhookSecret)
     .update(rawBody)
     .digest("hex");
 
-  return expected === signature;
+  return timingSafeEqualStrings(expected, signature);
 }
 
 export interface RazorpayWebhookParsed {
   providerEventId: string;
   providerPaymentId: string;
+  providerOrderId: string;
   donationId: string;
   amountMinor: number;
   currency: string;
   paidAt: string;
-  payload: Record<string, unknown>;
+  payload: Json;
 }
 
 export function parseRazorpayWebhook(rawBody: string): RazorpayWebhookParsed | null {
-  const event = JSON.parse(rawBody) as {
+  let event: {
     event?: string;
     created_at?: number;
     payload?: {
       payment?: {
         entity?: {
           id?: string;
+          order_id?: string;
           amount?: number;
           currency?: string;
           notes?: {
@@ -87,23 +95,46 @@ export function parseRazorpayWebhook(rawBody: string): RazorpayWebhookParsed | n
     };
   };
 
+  try {
+    event = JSON.parse(rawBody) as {
+      event?: string;
+      created_at?: number;
+      payload?: {
+        payment?: {
+          entity?: {
+            id?: string;
+            order_id?: string;
+            amount?: number;
+            currency?: string;
+            notes?: {
+              donationId?: string;
+            };
+          };
+        };
+      };
+    };
+  } catch {
+    return null;
+  }
+
   if (event.event !== "payment.captured") {
     return null;
   }
 
   const payment = event.payload?.payment?.entity;
   const donationId = payment?.notes?.donationId;
-  if (!payment?.id || !donationId || !payment.currency || !payment.amount) {
+  if (!payment?.id || !payment.order_id || !donationId || !payment.currency || payment.amount == null) {
     return null;
   }
 
   return {
     providerEventId: `${event.event}-${payment.id}`,
     providerPaymentId: payment.id,
+    providerOrderId: payment.order_id,
     donationId,
     amountMinor: payment.amount,
     currency: payment.currency,
     paidAt: new Date((event.created_at || Date.now() / 1000) * 1000).toISOString(),
-    payload: event as unknown as Record<string, unknown>,
+    payload: event as unknown as Json,
   };
 }

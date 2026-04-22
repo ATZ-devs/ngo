@@ -3,6 +3,7 @@ import Stripe from "stripe";
 
 import { processPaidWebhook } from "@/lib/donations/repository";
 import { verifyStripeWebhook } from "@/lib/payments/stripe";
+import type { Json } from "@/lib/supabase/types";
 
 export async function POST(req: NextRequest) {
   const rawBody = await req.text();
@@ -28,20 +29,28 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await processPaidWebhook({
+    const result = await processPaidWebhook({
       provider: "stripe",
       providerEventId: event.id,
       providerPaymentId: paymentIntent,
+      providerOrderId: session.id,
       donationId,
       amountMinor: session.amount_total,
       currency: session.currency.toUpperCase(),
-      paidAt: new Date().toISOString(),
-      payload: event as unknown as Record<string, unknown>,
+      paidAt: new Date(event.created * 1000).toISOString(),
+      payload: event as unknown as Json,
     });
+
+    if (!result.processed) {
+      return NextResponse.json({ ignored: true });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Webhook processing failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    if (error instanceof Error && error.message.includes("mismatch")) {
+      return NextResponse.json({ error: "Payment verification mismatch" }, { status: 400 });
+    }
+
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
 }

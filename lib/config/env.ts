@@ -16,6 +16,7 @@ export const env = {
   donationEmailFrom: getEnv("DONATION_EMAIL_FROM"),
   appBaseUrl: getEnv("APP_BASE_URL", "http://localhost:3000"),
   donationJobsSecret: getEnv("DONATION_JOBS_SECRET"),
+  cronSecret: getEnv("CRON_SECRET"),
   receiptsBucket: getEnv("SUPABASE_RECEIPTS_BUCKET", "receipts"),
   documentsBucket: getEnv("SUPABASE_DOCUMENTS_BUCKET", "documents"),
   staticNgoDocumentPath: getEnv("SUPABASE_STATIC_NGO_DOCUMENT_PATH", "docs/80G.pdf"),
