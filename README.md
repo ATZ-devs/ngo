@@ -130,7 +130,7 @@ Donor Payment → Payment Gateway → Webhook Verification → Database Update �
 
 ### Prerequisites
 
-- Node.js 18+ and npm 9+
+- Node.js 20.9+ and npm 10+
 - Supabase account (free tier available)
 - Razorpay account (test mode for development)
 - Resend account for email delivery
@@ -185,6 +185,7 @@ Donor Payment → Payment Gateway → Webhook Verification → Database Update �
 **Environment Variables in Production**:
 - Add all `.env.local` variables to Vercel project settings
 - Use live API keys for Razorpay and Stripe (not test keys)
+- Set both `DONATION_JOBS_SECRET` and `CRON_SECRET` to strong random values
 
 ---
 
