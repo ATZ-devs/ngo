@@ -22,7 +22,7 @@ export default function PovertyReliefPage() {
         />
         <div className="absolute inset-0 bg-[#5a7a96]/70" />
         <div className="section-container relative z-10 py-20">
-          <h1 className="text-5xl md:text-6xl font-serif text-white leading-tight" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight" style={{ fontFamily: 'var(--font-playfair-display)' }}>
             Poverty Relief
           </h1>
         </div>
@@ -49,10 +49,10 @@ export default function PovertyReliefPage() {
       <section className="bg-[#5a7a96] text-white section-padding">
         <div className="section-container text-center">
           <h2 className="heading-md text-white mb-6">Support Our Poverty Relief Mission</h2>
-          <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white/90 max-w-3xl mx-auto">
             Your donation can help us provide immediate relief to those in need.
           </p>
-          <Link href="/donate" className="inline-flex items-center px-10 py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-lg">
+          <Link href="/donate" className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg">
             DONATE FOR POVERTY RELIEF
           </Link>
         </div>

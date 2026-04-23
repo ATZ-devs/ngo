@@ -126,6 +126,8 @@ export default function Home() {
       title: "Child Welfare",
       href: "/child-welfare",
       image: "/assets/Child Welfare.png",
+      unoptimized: true,
+      contain: true,
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -156,6 +158,8 @@ export default function Home() {
       title: "Disaster Relief",
       href: "/disaster-relief",
       image: "/assets/Disaster Relief.png",
+      unoptimized: true,
+      contain: true,
       icon: (
         <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -285,7 +289,7 @@ export default function Home() {
 
           {/* Seamless Infinite Carousel */}
           <div
-            className="relative overflow-hidden"
+            className="relative overflow-hidden group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -304,8 +308,9 @@ export default function Home() {
                       src={card.image}
                       alt={card.title}
                       fill
-                      className="object-cover"
+                      className={card.contain ? "object-contain p-2" : "object-cover"}
                       sizes="320px"
+                      unoptimized={card.unoptimized}
                     />
                   ) : (
                     <div className="h-full flex items-center justify-center">
@@ -326,8 +331,9 @@ export default function Home() {
                       src={card.image}
                       alt={card.title}
                       fill
-                      className="object-cover"
+                      className={card.contain ? "object-contain p-2" : "object-cover"}
                       sizes="320px"
+                      unoptimized={card.unoptimized}
                     />
                   ) : (
                     <div className="h-full flex items-center justify-center">
@@ -341,32 +347,30 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Navigation Arrows - Only visible on hover */}
-            {isHovered && (
-              <>
-                {/* Left Arrow */}
-                <button
-                  onClick={goToPrevious}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 opacity-90 hover:opacity-100"
-                  aria-label="Previous slide"
-                >
-                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
+            {/* Navigation Arrows - always visible on mobile, visible on hover on desktop */}
+            <>
+              {/* Left Arrow */}
+              <button
+                onClick={goToPrevious}
+                className={`absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 md:opacity-0 md:group-hover:opacity-100 ${isHovered ? "md:opacity-90" : ""} opacity-90`}
+                aria-label="Previous slide"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
 
-                {/* Right Arrow */}
-                <button
-                  onClick={goToNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 opacity-90 hover:opacity-100"
-                  aria-label="Next slide"
-                >
-                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </>
-            )}
+              {/* Right Arrow */}
+              <button
+                onClick={goToNext}
+                className={`absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 md:opacity-0 md:group-hover:opacity-100 ${isHovered ? "md:opacity-90" : ""} opacity-90`}
+                aria-label="Next slide"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
           </div>
         </div>
       </section>
@@ -393,7 +397,7 @@ export default function Home() {
           <h2 className="heading-md text-white mb-6">
             Ready to Make a Difference?
           </h2>
-          <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white/90 max-w-2xl mx-auto">
             Your contribution can transform lives and build stronger communities.
             Join thousands of supporters in our mission for positive change.
           </p>

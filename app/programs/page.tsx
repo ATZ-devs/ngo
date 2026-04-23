@@ -164,7 +164,7 @@ export default function ProgramsPage() {
             <h1 className="heading-xl text-white mb-6">
               What We Do
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-teal-50 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 text-teal-50 max-w-4xl mx-auto leading-relaxed">
               Our comprehensive programs address critical needs across healthcare, education,
               empowerment, and community development. Every initiative is designed to create
               lasting positive impact in the lives of those we serve.

@@ -42,8 +42,8 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-[60]">
       <div className="relative">
         {/* Logo - overlaps both bars */}
-        <Link href="/" className="absolute left-4 sm:left-6 lg:left-8 top-1 z-[70] block">
-          <div className="w-[90px] h-[110px] relative">
+        <Link href="/" className="absolute left-3 sm:left-4 lg:left-8 top-1 z-[70] block">
+          <div className="w-[68px] h-[84px] sm:w-[82px] sm:h-[100px] lg:w-[90px] lg:h-[110px] relative">
             <Image
               src="/logo-full.png"
               alt="JeevKutumb Foundation Logo"
@@ -58,20 +58,20 @@ export default function Header() {
         {/* Top Contact Bar - Dark Slate/Steel Blue */}
         <div className="bg-[#5a7a96] text-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-end items-center py-2.5 text-sm pl-24 sm:pl-28">
+            <div className="flex justify-end items-center py-2 text-sm pl-20 sm:pl-24 lg:pl-28">
               {/* Contact Information */}
-              <div className="flex items-center space-x-6 text-white mr-auto">
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-x-3 sm:gap-x-6 text-white mr-auto min-w-0">
+                <div className="flex items-center space-x-1.5 min-w-0">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="font-medium text-white/95 hidden sm:inline">jeevkutumbfoundation@gmail.com</span>
+                  <span className="font-medium text-white/95 text-[10px] sm:text-sm truncate">jeevkutumbfoundation@gmail.com</span>
                 </div>
-                <div className="hidden sm:flex items-center space-x-2">
-                  <svg className="w-4 h-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center space-x-1.5 flex-shrink-0">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="font-medium text-white/95">+91 77100 75418</span>
+                  <span className="font-medium text-white/95 text-[10px] sm:text-sm">+91 77100 75418</span>
                 </div>
               </div>
 
@@ -141,7 +141,7 @@ export default function Header() {
         {/* Main Header - Pure White Background */}
         <div className="bg-white border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16 pl-24 sm:pl-28">
+            <div className="flex justify-between items-center h-14 sm:h-16 pl-20 sm:pl-24 lg:pl-28">
               {/* Desktop Navigation */}
               <nav className="hidden lg:flex items-center space-x-8">
                 <Link href="/" className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2">

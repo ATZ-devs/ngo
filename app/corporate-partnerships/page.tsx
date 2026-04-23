@@ -9,7 +9,7 @@ export default function CorporatePartnershipsPage() {
         <div className="absolute left-0 top-0 w-96 h-96 rounded-full border-2 border-white/20 -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute right-10 bottom-10 w-64 h-64 rounded-full border border-white/10"></div>
         <div className="section-container relative z-10 py-16">
-          <h1 className="text-5xl font-serif leading-tight text-white mb-4" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif leading-tight text-white mb-4" style={{ fontFamily: 'var(--font-playfair-display)' }}>
             Corporate Partnerships
           </h1>
           <p className="text-white/80 text-lg max-w-2xl">

@@ -5,9 +5,9 @@ export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Foundation Info */}
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 relative">
                 <Image
@@ -60,11 +60,11 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
             <div className="space-y-3 text-gray-300">
-              <div className="flex items-center space-x-2">
-                <svg className="w-5 h-5 text-[#5a7a96]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-start space-x-2 min-w-0">
+                <svg className="w-5 h-5 text-[#5a7a96] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:Jeevkutumbfoundation@gmail.com" className="hover:text-[#5a7a96] transition-colors">
+                <a href="mailto:Jeevkutumbfoundation@gmail.com" className="hover:text-[#5a7a96] transition-colors break-all min-w-0">
                   Jeevkutumbfoundation@gmail.com
                 </a>
               </div>

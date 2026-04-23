@@ -6,7 +6,7 @@ export default function About() {
       {/* About Us Section */}
       <section className="section-padding bg-white">
         <div className="section-container">
-          <div className="grid lg:grid-cols-5 gap-16 items-start">
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-16 items-start">
             {/* Left Column - 60% width (3/5) */}
             <div className="lg:col-span-3 space-y-12">
               {/* About Us Title */}
@@ -27,7 +27,7 @@ export default function About() {
 
             {/* Right Column - 40% width (2/5) */}
             <div className="lg:col-span-2">
-              <div className="bg-[#6D8BA3] rounded-2xl p-12 h-96 flex flex-col items-center justify-center text-center">
+              <div className="bg-[#6D8BA3] rounded-2xl p-6 sm:p-12 h-64 sm:h-96 flex flex-col items-center justify-center text-center">
                 {/* Handshake Icon */}
                 <Image
                   src="/assets/handshake.png"
@@ -55,11 +55,11 @@ export default function About() {
         <div className="section-container">
           {/* Section Title */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-serif text-white mb-4" style={{ fontFamily: 'var(--font-playfair-display)' }}>Our Team</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-4" style={{ fontFamily: 'var(--font-playfair-display)' }}>Our Team</h2>
           </div>
 
           {/* Three Column Layout */}
-          <div className="grid lg:grid-cols-3 gap-12 items-start">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
             {/* Left Column - Managing Committee Description */}
             <div className="space-y-6">
               <h3 className="heading-md text-white font-bold">Managing Committee</h3>

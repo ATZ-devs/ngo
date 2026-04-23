@@ -138,9 +138,9 @@ export default function DonatePage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-[500px] flex items-center">
+      <section className="relative overflow-hidden min-h-[500px] flex items-center bg-[#6D8BA3]">
         {/* Full background image */}
         <Image
           src="/assets/MultipleHands.png"
@@ -158,13 +158,13 @@ export default function DonatePage() {
 
         <div className="section-container relative z-10 py-20">
           <div className="max-w-2xl">
-            <h1 className="text-6xl font-serif leading-tight text-white mb-8" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif leading-tight text-white mb-8" style={{ fontFamily: 'var(--font-playfair-display)' }}>
               Help people<br />Save Tax
             </h1>
             <div>
               <Link
                 href="/tax-savings"
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#6D8BA3] font-semibold rounded-full transition-all duration-200 text-lg bg-transparent"
+                className="inline-flex items-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-[#6D8BA3] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg bg-transparent"
               >
                 How to Save Tax?
               </Link>
@@ -176,7 +176,7 @@ export default function DonatePage() {
       {/* Main Content - Two Column Layout */}
       <section className="section-padding bg-white" id="form">
         <div className="section-container">
-          <div className="grid lg:grid-cols-5 gap-16 items-start">
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-16 items-start">
 
             {/* Left Column - 40% width (2/5) Program Info */}
             <div className="lg:col-span-2 space-y-8">
@@ -299,7 +299,7 @@ export default function DonatePage() {
 
             {/* Right Column - 60% width (3/5) Donation Form */}
             <div className="lg:col-span-3">
-              <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+              <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 sm:p-6 lg:p-8">
                 <form className="space-y-6" onSubmit={handleSubmit}>
 
                   {/* Donation Amount */}
@@ -501,18 +501,18 @@ export default function DonatePage() {
                   )}
 
                   {/* Payment Methods Strip */}
-                  <div className="bg-[#fdf8ec] border border-yellow-200 rounded-lg px-6 py-5 text-center">
-                    <div className="flex justify-center items-center gap-3 mb-3">
-                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                  <div className="bg-[#fdf8ec] border border-yellow-200 rounded-lg px-3 sm:px-6 py-4 sm:py-5 text-center">
+                    <div className="flex justify-center items-center gap-2 sm:gap-3 mb-3">
+                      <div className="w-14 sm:w-20 h-10 sm:h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-1.5 sm:p-2">
                         <Image src="/assets/rupay-logo.png" alt="RuPay" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                      <div className="w-14 sm:w-20 h-10 sm:h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-1.5 sm:p-2">
                         <Image src="/assets/upi-logo.png" alt="UPI" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                      <div className="w-14 sm:w-20 h-10 sm:h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-1.5 sm:p-2">
                         <Image src="/assets/visa-logo.png" alt="Visa" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
-                      <div className="w-20 h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-2">
+                      <div className="w-14 sm:w-20 h-10 sm:h-12 bg-white rounded-xl border border-gray-200 shadow-sm flex items-center justify-center p-1.5 sm:p-2">
                         <Image src="/assets/Mastercard/mastercard-logo.png" alt="Mastercard" width={64} height={64} unoptimized className="object-contain w-full h-full" />
                       </div>
                     </div>
