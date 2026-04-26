@@ -25,7 +25,6 @@ async function loadRazorpaySdk(): Promise<boolean> {
 }
 
 export default function DonatePage() {
-  const [citizenship, setCitizenship] = useState("indian");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -74,7 +73,6 @@ export default function DonatePage() {
     setSubmitMessage(null);
 
     try {
-      const countryCode = citizenship === "indian" ? "IN" : "US";
       const amountMajor = Number(formData.donationAmount);
 
       if (!amountMajor || amountMajor <= 0) {
@@ -90,18 +88,13 @@ export default function DonatePage() {
           donorName: formData.fullName,
           donorEmail: formData.email,
           amountMajor,
-          countryCode,
+          countryCode: "IN",
         }),
       });
 
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error || "Unable to start payment.");
-      }
-
-      if (data.provider === "stripe") {
-        window.location.href = data.checkoutUrl as string;
-        return;
       }
 
       const sdkLoaded = await loadRazorpaySdk();
@@ -316,38 +309,6 @@ export default function DonatePage() {
                     />
                   </div>
 
-                  {/* Citizenship */}
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">Citizenship *</label>
-                    <div className="space-y-3">
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          name="citizenship"
-                          value="indian"
-                          checked={citizenship === "indian"}
-                          onChange={(e) => setCitizenship(e.target.value)}
-                          className="w-4 h-4 text-[#6D8BA3] border-gray-300 focus:ring-[#6D8BA3]"
-                        />
-                        <span className="ml-2 text-gray-900">Indian Citizen</span>
-                      </label>
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          name="citizenship"
-                          value="foreign"
-                          checked={citizenship === "foreign"}
-                          onChange={(e) => setCitizenship(e.target.value)}
-                          className="w-4 h-4 text-[#6D8BA3] border-gray-300 focus:ring-[#6D8BA3]"
-                        />
-                        <span className="ml-2 text-gray-900">Foreign Citizen/NRI</span>
-                      </label>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Indian citizen option is for transacting through Indian bank accounts or cards issued by Indian banks.
-                    </p>
-                  </div>
-
                   {/* Helper Note */}
                   <p className="text-sm text-gray-500">
                     Special characters not allowed in full name field
@@ -463,42 +424,36 @@ export default function DonatePage() {
                     </div>
                   </div>
 
-                  {citizenship === "indian" && (
-                    <>
-                      {/* PAN Number */}
-                      <div>
-                        <label className="block text-sm text-gray-500 mb-2">PAN Number</label>
-                        <input
-                          type="text"
-                          value={formData.panNumber}
-                          onChange={(e) => handleInputChange('panNumber', e.target.value.toUpperCase())}
-                          className="w-full px-0 py-2 border-0 border-b-2 border-gray-300 focus:border-[#6D8BA3] focus:ring-0 bg-transparent text-gray-900 placeholder-gray-400"
-                        />
-                      </div>
+                  {/* PAN Number */}
+                  <div>
+                    <label className="block text-sm text-gray-500 mb-2">PAN Number</label>
+                    <input
+                      type="text"
+                      value={formData.panNumber}
+                      onChange={(e) => handleInputChange('panNumber', e.target.value.toUpperCase())}
+                      className="w-full px-0 py-2 border-0 border-b-2 border-gray-300 focus:border-[#6D8BA3] focus:ring-0 bg-transparent text-gray-900 placeholder-gray-400"
+                    />
+                  </div>
 
-                      {/* PAN Warning */}
-                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                        <p className="font-bold text-amber-800">
-                          Please note that if you do not provide your PAN Number, you will not be able to claim 50% tax exemption u/s 80G in India
-                        </p>
-                      </div>
-                    </>
-                  )}
+                  {/* PAN Warning */}
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <p className="font-bold text-amber-800">
+                      Please note that if you do not provide your PAN Number, you will not be able to claim 50% tax exemption u/s 80G in India
+                    </p>
+                  </div>
 
-                  {/* Indian Citizen Declaration */}
-                  {citizenship === "indian" && (
-                    <div className="flex items-start space-x-3">
-                      <input
-                        type="checkbox"
-                        id="declaration"
-                        defaultChecked
-                        className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1 flex-shrink-0"
-                      />
-                      <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">
-                        I hereby declare that I am a citizen of India, making this donation out of my own funds. The information provided above is correct to the best of my knowledge. I know that all further communications will be done on contact details provided above.
-                      </label>
-                    </div>
-                  )}
+                  {/* Declaration */}
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="declaration"
+                      defaultChecked
+                      className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1 flex-shrink-0"
+                    />
+                    <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">
+                      I hereby declare that I am a citizen of India, making this donation out of my own funds. The information provided above is correct to the best of my knowledge. I know that all further communications will be done on contact details provided above.
+                    </label>
+                  </div>
 
                   {/* Payment Methods Strip */}
                   <div className="bg-[#fdf8ec] border border-yellow-200 rounded-lg px-3 sm:px-6 py-4 sm:py-5 text-center">

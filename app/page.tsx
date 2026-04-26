@@ -289,7 +289,7 @@ export default function Home() {
 
           {/* Seamless Infinite Carousel */}
           <div
-            className="relative overflow-hidden group"
+            className="relative overflow-hidden"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -347,30 +347,26 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Navigation Arrows - always visible on mobile, visible on hover on desktop */}
-            <>
-              {/* Left Arrow */}
-              <button
-                onClick={goToPrevious}
-                className={`absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 md:opacity-0 md:group-hover:opacity-100 ${isHovered ? "md:opacity-90" : ""} opacity-90`}
-                aria-label="Previous slide"
-              >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
+            {/* Navigation Arrows - always visible, z-index above overflow-hidden clip */}
+            <button
+              onClick={goToPrevious}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-20 opacity-90"
+              aria-label="Previous slide"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-              {/* Right Arrow */}
-              <button
-                onClick={goToNext}
-                className={`absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-10 md:opacity-0 md:group-hover:opacity-100 ${isHovered ? "md:opacity-90" : ""} opacity-90`}
-                aria-label="Next slide"
-              >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </>
+            <button
+              onClick={goToNext}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 sm:p-3 shadow-lg cursor-pointer hover:bg-gray-50 transition-all duration-200 z-20 opacity-90"
+              aria-label="Next slide"
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>

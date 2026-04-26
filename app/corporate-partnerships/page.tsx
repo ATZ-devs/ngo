@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CorporatePartnershipsPage() {
   return (
-    <div className="bg-white">
+    <div className="bg-white min-h-screen flex flex-col">
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[300px] flex items-center bg-[#6D8BA3]">
         <div className="absolute left-0 top-0 w-96 h-96 rounded-full border-2 border-white/20 -translate-x-1/2 -translate-y-1/2"></div>
@@ -19,10 +19,10 @@ export default function CorporatePartnershipsPage() {
       </section>
 
       {/* Content Section */}
-      <section className="section-padding bg-white">
+      <section className="flex-1 py-8 sm:py-12 lg:py-16 px-3 sm:px-6 lg:px-8 bg-white flex items-center">
         <div className="section-container">
-          <div className="max-w-3xl mx-auto text-center space-y-8">
-            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-12">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 lg:p-12">
               <div className="flex justify-center mb-6">
                 <Image
                   src="/assets/handshake.png"

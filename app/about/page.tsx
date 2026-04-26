@@ -54,40 +54,37 @@ export default function About() {
       <section className="bg-[#6D8BA3] section-padding">
         <div className="section-container">
           {/* Section Title */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 sm:mb-14">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-4" style={{ fontFamily: 'var(--font-playfair-display)' }}>Our Team</h2>
           </div>
 
-          {/* Three Column Layout */}
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-            {/* Left Column - Managing Committee Description */}
-            <div className="space-y-6">
-              <h3 className="heading-md text-white font-bold">Managing Committee</h3>
-              <p className="text-white/90 text-lg leading-relaxed">
-                Jeevkutumb&apos;s leadership collective comprising of Regional and Functional Directors who provide strategic direction to organizational objectives.
-              </p>
-            </div>
-
-            {/* Middle Column - Director Photo */}
-            <div className="flex justify-center">
-              <div className="w-64 bg-white rounded-xl overflow-hidden">
-                <div className="relative w-full h-72">
-                  <Image
-                    src="/assets/Director.png"
-                    alt="Director - JeevKutumb Foundation"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4 text-center">
-                  <h4 className="text-gray-900 font-semibold">Director</h4>
-                  <p className="text-gray-500 text-sm">JeevKutumb Foundation</p>
-                </div>
+          {/* Director Card */}
+          <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden">
+            <div className="flex flex-col sm:flex-row">
+              {/* Photo — whole image, no cropping */}
+              <div className="w-full sm:w-56 flex-shrink-0 overflow-hidden">
+                <Image
+                  src="/assets/Director.png"
+                  alt="Mr. Rajendra Soni - Director, JeevKutumb Foundation"
+                  width={400}
+                  height={500}
+                  className="w-full h-auto"
+                />
               </div>
-            </div>
 
-            {/* Right Column */}
-            <div className="flex justify-center">
+              {/* Bio */}
+              <div className="flex flex-col justify-center p-6 sm:p-8 space-y-3">
+                <div>
+                  <h3 className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--font-playfair-display)' }}>
+                    Mr. Rajendra Soni
+                  </h3>
+                  <p className="text-white/60 text-sm font-medium tracking-wide uppercase mt-1">Director, JeevKutumb Foundation</p>
+                </div>
+                <div className="w-10 h-0.5 bg-white/40"></div>
+                <p className="text-white/85 leading-relaxed">
+                  A Mumbai-based businessman with over 30 years of dedicated involvement in social work, leading and supporting initiatives focused on community development and social welfare.
+                </p>
+              </div>
             </div>
           </div>
         </div>

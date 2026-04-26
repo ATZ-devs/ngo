@@ -2,15 +2,34 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileWhatWeDoOpen, setMobileWhatWeDoOpen] = useState(false);
+  const [mobileGetInvolvedOpen, setMobileGetInvolvedOpen] = useState(false);
+  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
+  const [getInvolvedOpen, setGetInvolvedOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const whatWeDoRef = useRef<HTMLDivElement>(null);
+  const getInvolvedRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (whatWeDoRef.current && !whatWeDoRef.current.contains(e.target as Node)) {
+        setWhatWeDoOpen(false);
+      }
+      if (getInvolvedRef.current && !getInvolvedRef.current.contains(e.target as Node)) {
+        setGetInvolvedOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const whatWeDoPages = [
     { title: "Healthcare", href: "/healthcare" },
@@ -152,39 +171,49 @@ export default function Header() {
                 </Link>
 
               {/* What We Do Dropdown */}
-              <div className="relative group">
-                <button className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2 flex items-center">
+              <div className="relative" ref={whatWeDoRef}>
+                <button
+                  onClick={() => { setWhatWeDoOpen(o => !o); setGetInvolvedOpen(false); }}
+                  className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2 flex items-center"
+                >
                   What We Do
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className={`w-4 h-4 ml-1 transition-transform duration-200 ${whatWeDoOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div className="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-md border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60] max-h-96 overflow-y-auto">
-                  <Link href="/healthcare" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Healthcare</Link>
-                  <Link href="/education" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Education</Link>
-                  <Link href="/skill-development" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Skill Development</Link>
-                  <Link href="/women-empowerment" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Women Empowerment</Link>
-                  <Link href="/child-welfare" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Child Welfare</Link>
-                  <Link href="/senior-citizen-care" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Senior Citizen Care</Link>
-                  <Link href="/poverty-relief" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Poverty Relief</Link>
-                  <Link href="/disaster-relief" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Disaster Relief</Link>
-                  <Link href="/environmental-protection" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Environmental Protection</Link>
-                  <Link href="/mental-health" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Mental Health Awareness</Link>
-                </div>
+                {whatWeDoOpen && (
+                  <div className="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-md border border-gray-200 z-[80] max-h-96 overflow-y-auto">
+                    <Link href="/healthcare" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Healthcare</Link>
+                    <Link href="/education" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Education</Link>
+                    <Link href="/skill-development" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Skill Development</Link>
+                    <Link href="/women-empowerment" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Women Empowerment</Link>
+                    <Link href="/child-welfare" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Child Welfare</Link>
+                    <Link href="/senior-citizen-care" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Senior Citizen Care</Link>
+                    <Link href="/poverty-relief" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Poverty Relief</Link>
+                    <Link href="/disaster-relief" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Disaster Relief</Link>
+                    <Link href="/environmental-protection" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Environmental Protection</Link>
+                    <Link href="/mental-health" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setWhatWeDoOpen(false)}>Mental Health Awareness</Link>
+                  </div>
+                )}
               </div>
 
               {/* Get Involved Dropdown */}
-              <div className="relative group">
-                <button className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2 flex items-center">
+              <div className="relative" ref={getInvolvedRef}>
+                <button
+                  onClick={() => { setGetInvolvedOpen(o => !o); setWhatWeDoOpen(false); }}
+                  className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2 flex items-center"
+                >
                   Get Involved
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className={`w-4 h-4 ml-1 transition-transform duration-200 ${getInvolvedOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div className="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-md border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60]">
-                  <Link href="/volunteering" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Volunteering &amp; Internships</Link>
-                  <Link href="/corporate-partnerships" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]">Corporate Partnerships</Link>
-                </div>
+                {getInvolvedOpen && (
+                  <div className="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-md border border-gray-200 z-[80]">
+                    <Link href="/volunteering" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setGetInvolvedOpen(false)}>Volunteering &amp; Internships</Link>
+                    <Link href="/corporate-partnerships" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-[#5a7a96]" onClick={() => setGetInvolvedOpen(false)}>Corporate Partnerships</Link>
+                  </div>
+                )}
               </div>
             </nav>
 
@@ -261,21 +290,24 @@ export default function Header() {
                     </div>
                   )}
                 </div>
-                <Link
-                  href="/volunteering"
-                  className="block px-3 py-2 text-gray-700 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Volunteering &amp; Internships
-                </Link>
-                <Link
-                  href="/corporate-partnerships"
-                  className="block px-3 py-2 text-gray-700 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Corporate Partnerships
-                </Link>
-
+                {/* Mobile Get Involved - Expandable */}
+                <div>
+                  <button
+                    className="w-full flex items-center justify-between px-3 py-2 text-gray-700 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors"
+                    onClick={() => setMobileGetInvolvedOpen(!mobileGetInvolvedOpen)}
+                  >
+                    <span>Get Involved</span>
+                    <svg className={`w-4 h-4 transition-transform duration-200 ${mobileGetInvolvedOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {mobileGetInvolvedOpen && (
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-[#5a7a96]/20 pl-3">
+                      <Link href="/volunteering" className="block px-2 py-1.5 text-gray-600 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors text-sm" onClick={() => setIsMenuOpen(false)}>Volunteering &amp; Internships</Link>
+                      <Link href="/corporate-partnerships" className="block px-2 py-1.5 text-gray-600 hover:text-[#5a7a96] hover:bg-gray-50 rounded-md transition-colors text-sm" onClick={() => setIsMenuOpen(false)}>Corporate Partnerships</Link>
+                    </div>
+                  )}
+                </div>
                 {/* Mobile Search */}
                 <div className="px-3 py-2">
                   <form onSubmit={handleSearch} className="flex items-center bg-gray-50 rounded-md border border-gray-300 px-3 py-2">
