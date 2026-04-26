@@ -80,12 +80,12 @@ export default function Header() {
             <div className="flex justify-end items-center py-2 text-sm pl-20 sm:pl-24 lg:pl-28">
               {/* Contact Information */}
               <div className="flex items-center gap-x-2 md:gap-x-3 lg:gap-x-6 text-white mr-auto min-w-0">
-                <div className="flex items-center space-x-1.5 min-w-0">
+                <a href="mailto:jeevkutumbfoundation@gmail.com" title="jeevkutumbfoundation@gmail.com" className="flex items-center space-x-1.5 min-w-0 hover:opacity-80 transition-opacity">
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <span className="font-medium text-white/95 text-[10px] md:text-xs lg:text-sm truncate max-w-[130px] md:max-w-[160px] lg:max-w-none">jeevkutumbfoundation@gmail.com</span>
-                </div>
+                </a>
                 <div className="flex items-center space-x-1.5 flex-shrink-0">
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
