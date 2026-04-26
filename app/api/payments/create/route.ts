@@ -4,7 +4,6 @@ import { z } from "zod";
 import { env } from "@/lib/config/env";
 import { createPendingDonation, setProviderOrderId } from "@/lib/donations/repository";
 import { createRazorpayOrder } from "@/lib/payments/razorpay";
-import { createStripeCheckoutSession } from "@/lib/payments/stripe";
 import { consumeRateLimit } from "@/lib/security/rate-limit";
 
 const MAX_DONATION_AMOUNT = 500000;
@@ -23,7 +22,6 @@ const createPaymentSchema = z.object({
     .positive()
     .max(MAX_DONATION_AMOUNT)
     .refine((value) => Number.isInteger(value * 100), "Amount supports up to 2 decimal places."),
-  countryCode: z.string().trim().toUpperCase().regex(/^[A-Z]{2}$/),
 });
 
 function getRequestIp(req: NextRequest): string {
@@ -64,9 +62,8 @@ export async function POST(req: NextRequest) {
 
     const input = createPaymentSchema.parse(body);
 
-    const isIndia = input.countryCode === "IN";
-    const provider = isIndia ? "razorpay" : "stripe";
-    const currency = isIndia ? "INR" : "USD";
+    const provider = "razorpay";
+    const currency = "INR";
     const amountMinor = Math.round(input.amountMajor * 100);
 
     const donation = await createPendingDonation({
@@ -74,54 +71,28 @@ export async function POST(req: NextRequest) {
       donorEmail: input.donorEmail,
       amountMinor,
       currency,
-      countryCode: input.countryCode,
+      countryCode: "IN",
       provider,
     });
 
-    if (provider === "razorpay") {
-      const order = await createRazorpayOrder({
-        donationId: donation.id,
-        amountMinor,
-        currency,
-        donorName: input.donorName,
-        donorEmail: input.donorEmail,
-      });
-
-      await setProviderOrderId(donation.id, order.id);
-
-      return NextResponse.json({
-        provider: "razorpay",
-        donationId: donation.id,
-        amountMinor,
-        keyId: env.razorpayKeyId,
-        orderId: order.id,
-        currency,
-        donorName: input.donorName,
-        donorEmail: input.donorEmail,
-      });
-    }
-
-    const session = await createStripeCheckoutSession({
+    const order = await createRazorpayOrder({
       donationId: donation.id,
       amountMinor,
+      donorName: input.donorName,
+      donorEmail: input.donorEmail,
+    });
+
+    await setProviderOrderId(donation.id, order.id);
+
+    return NextResponse.json({
+      provider: "razorpay",
+      donationId: donation.id,
+      amountMinor,
+      keyId: env.razorpayKeyId,
+      orderId: order.id,
       currency,
       donorName: input.donorName,
       donorEmail: input.donorEmail,
-      successUrl: `${env.appBaseUrl}/donate?status=processing`,
-      cancelUrl: `${env.appBaseUrl}/donate?status=cancelled`,
-    });
-
-    if (!session.id || !session.url) {
-      throw new Error("Failed to create Stripe session");
-    }
-
-    await setProviderOrderId(donation.id, session.id);
-
-    return NextResponse.json({
-      provider: "stripe",
-      donationId: donation.id,
-      sessionId: session.id,
-      checkoutUrl: session.url,
     });
   } catch (error) {
     console.error("Payment creation error:", error);

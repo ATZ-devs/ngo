@@ -7,8 +7,6 @@ function getEnv(name: string, fallback = ""): string {
 export const env = {
   supabaseUrl: getEnv("SUPABASE_URL"),
   supabaseServiceRoleKey: getEnv("SUPABASE_SERVICE_ROLE_KEY"),
-  stripeSecretKey: getEnv("STRIPE_SECRET_KEY"),
-  stripeWebhookSecret: getEnv("STRIPE_WEBHOOK_SECRET"),
   razorpayKeyId: getEnv("RAZORPAY_KEY_ID"),
   razorpayKeySecret: getEnv("RAZORPAY_KEY_SECRET"),
   razorpayWebhookSecret: getEnv("RAZORPAY_WEBHOOK_SECRET"),

@@ -153,6 +153,71 @@ export async function processPaidWebhook(input: PaymentEventInput): Promise<{ pr
   return { processed: true };
 }
 
+export async function processFailedWebhook(input: PaymentEventInput): Promise<{ processed: boolean }> {
+  const supabaseAdmin = getSupabaseAdmin();
+  const { error: eventError } = await supabaseAdmin.from("payment_events").upsert(
+    {
+      provider: input.provider,
+      provider_event_id: input.providerEventId,
+      provider_payment_id: input.providerPaymentId,
+      donation_id: input.donationId,
+      payload: input.payload,
+      paid_at: input.paidAt,
+    },
+    { onConflict: "provider,provider_event_id", ignoreDuplicates: true }
+  );
+
+  if (eventError) {
+    throw new Error(`Failed to persist webhook event: ${eventError.message}`);
+  }
+
+  const { data: donation, error: donationError } = await supabaseAdmin
+    .from("donations")
+    .select("id,status,provider,provider_order_id,amount_minor,currency")
+    .eq("id", input.donationId)
+    .single();
+
+  if (donationError || !donation) {
+    throw new Error(`Donation not found for webhook: ${input.donationId}`);
+  }
+
+  if (donation.status === "paid" || donation.status === "failed") {
+    return { processed: false };
+  }
+
+  if (donation.provider !== input.provider) {
+    throw new Error("Payment provider mismatch for donation.");
+  }
+
+  const normalizedIncomingCurrency = input.currency.toUpperCase();
+  if (donation.currency.toUpperCase() !== normalizedIncomingCurrency) {
+    throw new Error("Payment currency mismatch for donation.");
+  }
+
+  if (donation.amount_minor !== input.amountMinor) {
+    throw new Error("Payment amount mismatch for donation.");
+  }
+
+  if (!input.providerOrderId || !donation.provider_order_id || donation.provider_order_id !== input.providerOrderId) {
+    throw new Error("Provider order ID mismatch for donation.");
+  }
+
+  const { error: updateError } = await supabaseAdmin
+    .from("donations")
+    .update({
+      status: "failed",
+      provider_payment_id: input.providerPaymentId,
+    })
+    .eq("id", input.donationId)
+    .eq("status", "pending");
+
+  if (updateError) {
+    throw new Error(`Failed to mark donation as failed: ${updateError.message}`);
+  }
+
+  return { processed: true };
+}
+
 export async function markQueuedReceiptJobCompleted(donationId: string): Promise<void> {
   const supabaseAdmin = getSupabaseAdmin();
   const { error } = await supabaseAdmin

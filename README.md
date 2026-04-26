@@ -113,7 +113,7 @@ Donor Payment → Payment Gateway → Webhook Verification → Database Update �
 ### Data Protection
 
 ✓ **End-to-End Encryption**: Sensitive data encrypted in transit and at rest  
-✓ **No Payment Storage**: Credit card data never touches our servers (handled by Razorpay/Stripe)  
+✓ **No Payment Storage**: Card and UPI payment data never touches our servers (handled by Razorpay)  
 ✓ **Secure API Keys**: All secrets stored in encrypted environment variables  
 ✓ **Database Backups**: Daily automated backups with point-in-time recovery  
 
@@ -184,7 +184,7 @@ Donor Payment → Payment Gateway → Webhook Verification → Database Update �
 
 **Environment Variables in Production**:
 - Add all `.env.local` variables to Vercel project settings
-- Use live API keys for Razorpay and Stripe (not test keys)
+- Use live API keys for Razorpay (not test keys)
 - Set both `DONATION_JOBS_SECRET` and `CRON_SECRET` to strong random values
 
 ---

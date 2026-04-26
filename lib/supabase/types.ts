@@ -11,7 +11,7 @@ export interface Database {
           amount_minor: number;
           currency: string;
           country_code: string;
-          provider: "razorpay" | "stripe" | null;
+          provider: "razorpay" | null;
           provider_order_id: string | null;
           provider_payment_id: string | null;
           status: "pending" | "paid" | "failed";
@@ -26,7 +26,7 @@ export interface Database {
           amount_minor: number;
           currency: string;
           country_code: string;
-          provider?: "razorpay" | "stripe" | null;
+          provider?: "razorpay" | null;
           provider_order_id?: string | null;
           provider_payment_id?: string | null;
           status?: "pending" | "paid" | "failed";
@@ -40,7 +40,7 @@ export interface Database {
           amount_minor?: number;
           currency?: string;
           country_code?: string;
-          provider?: "razorpay" | "stripe" | null;
+          provider?: "razorpay" | null;
           provider_order_id?: string | null;
           provider_payment_id?: string | null;
           status?: "pending" | "paid" | "failed";
@@ -52,7 +52,7 @@ export interface Database {
       payment_events: {
         Row: {
           id: string;
-          provider: "razorpay" | "stripe";
+          provider: "razorpay";
           provider_event_id: string;
           provider_payment_id: string;
           donation_id: string;
@@ -62,7 +62,7 @@ export interface Database {
         };
         Insert: {
           id?: string;
-          provider: "razorpay" | "stripe";
+          provider: "razorpay";
           provider_event_id: string;
           provider_payment_id: string;
           donation_id: string;
@@ -71,7 +71,7 @@ export interface Database {
           created_at?: string;
         };
         Update: {
-          provider?: "razorpay" | "stripe";
+          provider?: "razorpay";
           provider_event_id?: string;
           provider_payment_id?: string;
           donation_id?: string;
