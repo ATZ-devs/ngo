@@ -21,19 +21,13 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Continuous auto-scroll functionality with CSS animation
+  // Hover pause/resume — only toggles playState, never resets the animation definition
   useEffect(() => {
-    if (carouselRef.current) {
-      if (!isHovered && !useManualControl) {
-        carouselRef.current.style.animation = 'scroll 60s linear infinite';
-        carouselRef.current.style.animationPlayState = 'running';
-      } else {
-        carouselRef.current.style.animationPlayState = 'paused';
-      }
-    }
+    if (!carouselRef.current || useManualControl) return;
+    carouselRef.current.style.animationPlayState = isHovered ? 'paused' : 'running';
   }, [isHovered, useManualControl]);
 
-  // Handle manual control
+  // Handle manual control — freeze at exact arrow position
   useEffect(() => {
     if (useManualControl && carouselRef.current) {
       carouselRef.current.style.animation = 'none';
@@ -41,20 +35,25 @@ export default function Home() {
     }
   }, [currentOffset, useManualControl]);
 
-  // Reset to auto after manual control stops
+  // Resume auto-scroll from the current position after 800ms of inactivity
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    if (useManualControl && !isHovered) {
+    if (useManualControl) {
       timeout = setTimeout(() => {
-        setUseManualControl(false);
         if (carouselRef.current) {
-          carouselRef.current.style.animation = 'scroll 60s linear infinite';
+          // Compute how far into the 60s cycle we already are
+          const delay = ((-currentOffset) / 3440) * 60;
+          carouselRef.current.style.transform = '';
+          carouselRef.current.style.animation = `scroll 60s linear -${Math.max(0, delay).toFixed(2)}s infinite`;
           carouselRef.current.style.animationPlayState = 'running';
         }
-      }, 2000); // Resume auto-scroll 2 seconds after last manual interaction
+        // Setting false triggers the hover effect to re-run,
+        // which will pause again if mouse is still hovering
+        setUseManualControl(false);
+      }, 800);
     }
     return () => clearTimeout(timeout);
-  }, [useManualControl, isHovered, currentOffset]);
+  }, [useManualControl, currentOffset]);
 
   const goToPrevious = () => {
     setUseManualControl(true);
@@ -290,8 +289,8 @@ export default function Home() {
           {/* Seamless Infinite Carousel */}
           <div
             className="relative overflow-hidden"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onPointerEnter={(e) => { if (e.pointerType === 'mouse') setIsHovered(true); }}
+            onPointerLeave={(e) => { if (e.pointerType === 'mouse') setIsHovered(false); }}
           >
             <div
               ref={carouselRef}
