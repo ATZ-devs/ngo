@@ -79,7 +79,7 @@ export default function DonatePage() {
         throw new Error("Please enter a valid donation amount.");
       }
 
-      const response = await fetch("/api/payments/create", {
+      const response = await fetch("/api/razorpay-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,6 @@ export default function DonatePage() {
           donorName: formData.fullName,
           donorEmail: formData.email,
           amountMajor,
-          countryCode: "IN",
         }),
       });
 
@@ -116,6 +115,30 @@ export default function DonatePage() {
         },
         theme: {
           color: "#6D8BA3",
+        },
+        handler: async (paymentResponse: {
+          razorpay_order_id: string;
+          razorpay_payment_id: string;
+          razorpay_signature: string;
+        }) => {
+          try {
+            const verifyResponse = await fetch("/api/razorpay-verify", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(paymentResponse),
+            });
+
+            if (!verifyResponse.ok) {
+              throw new Error("Payment verification failed.");
+            }
+
+            setSubmitMessage("Payment successful. Your receipt will be emailed after webhook confirmation.");
+          } catch (verificationError) {
+            console.error("Payment verification error:", verificationError);
+            setSubmitMessage("Payment received but verification is pending. We will confirm by email shortly.");
+          }
         },
       });
 

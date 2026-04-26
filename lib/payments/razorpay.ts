@@ -27,7 +27,6 @@ function getRazorpay() {
 interface CreateRazorpayOrderInput {
   donationId: string;
   amountMinor: number;
-  currency: string;
   donorName: string;
   donorEmail: string;
 }
@@ -36,7 +35,7 @@ export async function createRazorpayOrder(input: CreateRazorpayOrderInput) {
   const razorpay = getRazorpay();
   const order = await razorpay.orders.create({
     amount: input.amountMinor,
-    currency: input.currency,
+    currency: "INR",
     notes: {
       donationId: input.donationId,
       donorName: input.donorName,
@@ -46,6 +45,28 @@ export async function createRazorpayOrder(input: CreateRazorpayOrderInput) {
   });
 
   return order;
+}
+
+export function verifyRazorpayPaymentSignature(input: {
+  orderId: string;
+  paymentId: string;
+  signature: string;
+}): boolean {
+  if (!env.razorpayKeySecret) {
+    throw new Error("Missing RAZORPAY_KEY_SECRET.");
+  }
+
+  if (!input.orderId || !input.paymentId || !input.signature) {
+    return false;
+  }
+
+  const payload = `${input.orderId}|${input.paymentId}`;
+  const expected = crypto
+    .createHmac("sha256", env.razorpayKeySecret)
+    .update(payload)
+    .digest("hex");
+
+  return timingSafeEqualStrings(expected, input.signature);
 }
 
 export function verifyRazorpayWebhook(rawBody: string, signature: string): boolean {
@@ -66,6 +87,7 @@ export function verifyRazorpayWebhook(rawBody: string, signature: string): boole
 }
 
 export interface RazorpayWebhookParsed {
+  eventType: "payment.captured" | "payment.failed";
   providerEventId: string;
   providerPaymentId: string;
   providerOrderId: string;
@@ -117,7 +139,7 @@ export function parseRazorpayWebhook(rawBody: string): RazorpayWebhookParsed | n
     return null;
   }
 
-  if (event.event !== "payment.captured") {
+  if (event.event !== "payment.captured" && event.event !== "payment.failed") {
     return null;
   }
 
@@ -128,6 +150,7 @@ export function parseRazorpayWebhook(rawBody: string): RazorpayWebhookParsed | n
   }
 
   return {
+    eventType: event.event,
     providerEventId: `${event.event}-${payment.id}`,
     providerPaymentId: payment.id,
     providerOrderId: payment.order_id,

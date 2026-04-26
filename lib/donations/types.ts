@@ -1,6 +1,6 @@
 import type { Json } from "@/lib/supabase/types";
 
-export type PaymentProvider = "razorpay" | "stripe";
+export type PaymentProvider = "razorpay";
 export type DonationStatus = "pending" | "paid" | "failed";
 export type JobStatus = "queued" | "processing" | "completed" | "failed";
 

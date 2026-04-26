@@ -7,7 +7,7 @@ create table if not exists donations (
   amount_minor integer not null check (amount_minor > 0),
   currency text not null,
   country_code text not null,
-  provider text check (provider in ('razorpay', 'stripe')),
+  provider text check (provider in ('razorpay')),
   provider_order_id text,
   provider_payment_id text,
   status text not null default 'pending' check (status in ('pending', 'paid', 'failed')),
@@ -18,7 +18,7 @@ create table if not exists donations (
 
 create table if not exists payment_events (
   id uuid primary key default gen_random_uuid(),
-  provider text not null check (provider in ('razorpay', 'stripe')),
+  provider text not null check (provider in ('razorpay')),
   provider_event_id text not null,
   provider_payment_id text not null,
   donation_id uuid not null references donations(id) on delete cascade,

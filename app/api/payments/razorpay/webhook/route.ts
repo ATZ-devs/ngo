@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import {
+  processFailedWebhook,
   processPaidWebhook,
 } from "@/lib/donations/repository";
 import { parseRazorpayWebhook, verifyRazorpayWebhook } from "@/lib/payments/razorpay";
@@ -22,8 +23,8 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const result = await processPaidWebhook({
-      provider: "razorpay",
+    const payload = {
+      provider: "razorpay" as const,
       providerEventId: parsed.providerEventId,
       providerPaymentId: parsed.providerPaymentId,
       providerOrderId: parsed.providerOrderId,
@@ -32,7 +33,11 @@ export async function POST(req: NextRequest) {
       currency: parsed.currency,
       paidAt: parsed.paidAt,
       payload: parsed.payload,
-    });
+    };
+
+    const result = parsed.eventType === "payment.captured"
+      ? await processPaidWebhook(payload)
+      : await processFailedWebhook(payload);
 
     // Keep webhook acknowledgements fast. Email/PDF work runs via queued jobs.
     return NextResponse.json({ ok: true, processed: result.processed });

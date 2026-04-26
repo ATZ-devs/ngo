@@ -9,7 +9,7 @@ import {
   saveReceipt,
 } from "@/lib/donations/repository";
 import { sendDonationEmail } from "@/lib/email/send-donation-email";
-import { generateReceiptPdf } from "@/lib/receipts/generate-receipt-pdf";
+import { generateReceiptPdf } from "@/lib/pdf/generate-receipt-pdf";
 import { timingSafeEqualStrings } from "@/lib/security/crypto";
 import { downloadStaticNgoDocument, uploadReceiptPdf } from "@/lib/storage/supabase-storage";
 
