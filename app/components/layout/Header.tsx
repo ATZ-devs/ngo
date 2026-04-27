@@ -62,15 +62,17 @@ export default function Header() {
       <div className="relative">
         {/* Logo - overlaps both bars */}
         <Link href="/" className="absolute left-3 sm:left-4 lg:left-8 top-1 z-[70] block">
-          <div className="w-[68px] h-[84px] sm:w-[82px] sm:h-[100px] lg:w-[90px] lg:h-[110px] relative">
-            <Image
-              src="/logo-full.png"
-              alt="JeevKutumb Foundation Logo"
-              width={280}
-              height={400}
-              className="object-contain drop-shadow-lg w-full h-full"
-              priority
-            />
+          <div className="w-[68px] sm:w-[82px] lg:w-[90px] relative bg-white rounded-b-3xl shadow-md flex flex-col">
+            <div className="relative w-full h-[72px] sm:h-[86px] lg:h-[95px]">
+              <Image
+                src="/logo-full.png"
+                alt="JeevKutumb Foundation Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="h-2 sm:h-2 lg:h-3" />
           </div>
         </Link>
 
@@ -192,9 +194,9 @@ export default function Header() {
         {/* Main Header - Pure White Background */}
         <div className="bg-white border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-14 sm:h-16 pl-20 sm:pl-24 lg:pl-28">
+            <div className="flex items-center h-14 sm:h-16 pl-20 sm:pl-24 lg:pl-28 pr-3 sm:pr-4 md:pr-0">
               {/* Desktop Navigation */}
-              <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
+              <nav className="hidden md:flex flex-1 items-center space-x-4 lg:space-x-8">
                 <Link href="/" className="text-gray-800 hover:text-[#5a7a96] transition-colors font-medium py-2 text-sm lg:text-base">
                   Home
                 </Link>
@@ -249,11 +251,24 @@ export default function Header() {
               </div>
             </nav>
 
-            {/* Donate Button & Mobile Menu - Far Right */}
-            <div className="flex items-center space-x-4">
+            {/* Donate Button & Mobile Menu */}
+            <div className="flex-1 md:flex-none flex items-center md:justify-end md:space-x-4">
+              {/* Mobile: donate centered in remaining space */}
+              <div className="flex-1 flex justify-center md:hidden">
+                <Link
+                  href="/donate#donation-form"
+                  className="bg-[#5a7a96] hover:bg-[#4a6a86] text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 transform hover:-translate-y-0.5"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                  <span>Donate Now</span>
+                </Link>
+              </div>
+              {/* Desktop: donate normal */}
               <Link
                 href="/donate"
-                className="bg-[#5a7a96] hover:bg-[#4a6a86] text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2 transform hover:-translate-y-0.5"
+                className="hidden md:flex bg-[#5a7a96] hover:bg-[#4a6a86] text-white px-6 py-3 rounded-full font-semibold transition-all duration-200 shadow-md hover:shadow-lg items-center space-x-2 transform hover:-translate-y-0.5"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -264,7 +279,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 rounded-md text-gray-700 hover:text-[#5a7a96] hover:bg-gray-100 transition-colors"
+                className="md:hidden flex-shrink-0 p-2 rounded-md text-gray-700 hover:text-[#5a7a96] hover:bg-gray-100 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {isMenuOpen ? (
