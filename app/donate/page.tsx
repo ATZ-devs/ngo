@@ -466,25 +466,16 @@ export default function DonatePage() {
                   </div>
 
                   {/* Declaration */}
-                  <div className="space-y-3">
-                    <div className="flex items-start space-x-3">
-                      <svg className="w-4 h-4 text-[#6D8BA3] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                      </svg>
-                      <p className="text-sm text-gray-700 leading-relaxed">I hereby declare that I am a citizen of India, making this donation out of my own funds.</p>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <svg className="w-4 h-4 text-[#6D8BA3] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                      </svg>
-                      <p className="text-sm text-gray-700 leading-relaxed">The information provided above is correct to the best of my knowledge.</p>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <svg className="w-4 h-4 text-[#6D8BA3] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                      </svg>
-                      <p className="text-sm text-gray-700 leading-relaxed">I know that all further communications will be done on contact details provided above.</p>
-                    </div>
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="declaration"
+                      defaultChecked
+                      className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1 flex-shrink-0"
+                    />
+                    <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">
+                      I hereby declare that I am a citizen of India, making this donation out of my own funds. The information provided above is correct to the best of my knowledge. I know that all further communications will be done on contact details provided above.
+                    </label>
                   </div>
 
                   {/* Payment Methods Strip */}
