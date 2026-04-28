@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function About() {
   return (
@@ -25,9 +26,11 @@ export default function About() {
               </div>
             </div>
 
-            {/* Right Column - 40% width (2/5) */}
             <div className="lg:col-span-2">
-              <div className="bg-[#6D8BA3] rounded-2xl p-6 sm:p-12 h-64 sm:h-96 flex flex-col items-center justify-center text-center">
+              <Link
+                href="/donate#donation-form"
+                className="bg-[#6D8BA3] rounded-2xl p-6 sm:p-12 h-64 sm:h-96 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-[#5a7a96] hover:shadow-2xl hover:scale-[1.03] transition-all duration-200 block"
+              >
                 {/* Handshake Icon */}
                 <Image
                   src="/assets/handshake.png"
@@ -37,7 +40,7 @@ export default function About() {
                   className="mb-6 invert"
                 />
                 <h3 className="text-2xl font-medium text-white">Help Someone</h3>
-              </div>
+              </Link>
             </div>
           </div>
 

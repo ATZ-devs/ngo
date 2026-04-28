@@ -174,7 +174,7 @@ export default function ContactPage() {
               <div className="bg-teal-50 rounded-lg p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <Link href="/donate" className="btn-primary text-center">
+                  <Link href="/donate#donation-form" className="btn-primary text-center">
                     Make a Donation
                   </Link>
                   <Link href="/about" className="btn-secondary text-center">

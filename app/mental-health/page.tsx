@@ -52,7 +52,7 @@ export default function MentalHealthPage() {
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white/90 max-w-3xl mx-auto">
             Your donation can help us support mental health awareness and care.
           </p>
-          <Link href="/donate" className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg">
+          <Link href="/donate#donation-form" className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg">
             DONATE FOR MENTAL HEALTH
           </Link>
         </div>

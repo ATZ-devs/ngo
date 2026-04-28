@@ -55,7 +55,7 @@ export default function HealthcarePage() {
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white/90 max-w-3xl mx-auto">
             Your donation can help us provide life-saving healthcare services to those who need it most.
           </p>
-          <Link href="/donate" className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg">
+          <Link href="/donate#donation-form" className="inline-flex items-center px-6 py-3 sm:px-10 sm:py-4 border-2 border-white text-white hover:bg-white hover:text-[#5a7a96] font-semibold rounded-full transition-all duration-200 text-base sm:text-lg">
             DONATE FOR HEALTHCARE
           </Link>
         </div>

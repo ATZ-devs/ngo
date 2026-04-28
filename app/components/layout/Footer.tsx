@@ -48,7 +48,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/donate" className="hover:text-[#5a7a96] transition-colors">
+                <Link href="/donate#donation-form" className="hover:text-[#5a7a96] transition-colors">
                   Donate Now
                 </Link>
               </li>

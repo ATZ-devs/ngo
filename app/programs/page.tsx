@@ -170,7 +170,7 @@ export default function ProgramsPage() {
               lasting positive impact in the lives of those we serve.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/donate" className="btn-donate">
+              <Link href="/donate#donation-form" className="btn-donate">
                 Support Our Programs
               </Link>
 
@@ -246,7 +246,7 @@ export default function ProgramsPage() {
                       Learn More
                     </Link>
                     <Link
-                      href={`/donate?program=${program.id}`}
+                      href={`/donate?program=${program.id}#donation-form`}
                       className="btn-primary text-sm px-4 py-2"
                     >
                       Support This
@@ -336,7 +336,7 @@ export default function ProgramsPage() {
                   Support specific programs or contribute to our general fund.
                   All donations are tax-deductible under Section 80G.
                 </p>
-                <Link href="/donate" className="btn-primary">
+                <Link href="/donate#donation-form" className="btn-primary">
                   Donate Now
                 </Link>
               </div>
