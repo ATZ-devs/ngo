@@ -41,7 +41,7 @@ export default function TaxSavingsPage() {
               </div>
             </div>
 
-            <div className="pt-8 flex flex-col sm:flex-row gap-4">
+            <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/donate#donation-form"
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#5a7a96] text-white font-semibold rounded-full text-lg hover:bg-[#4a6a86] transition-all duration-200 shadow-lg"
