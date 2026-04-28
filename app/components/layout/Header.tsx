@@ -61,7 +61,7 @@ export default function Header() {
     <header className="bg-white shadow-md sticky top-0 z-[60]">
       <div className="relative">
         {/* Logo - overlaps both bars */}
-        <Link href="/" className="absolute left-[72px] min-[390px]:left-[82px] sm:left-[92px] md:left-4 lg:left-8 top-[10px] md:top-1 z-[70] block">
+        <Link href="/" className="absolute left-[60px] min-[390px]:left-[64px] sm:left-[70px] md:left-4 lg:left-8 top-[10px] md:top-1 z-[70] block">
           <div className="w-[68px] md:w-[82px] lg:w-[90px] relative bg-white rounded-b-3xl shadow-md flex flex-col">
             <div className="relative w-full h-[72px] md:h-[86px] lg:h-[95px]">
               <Image
@@ -79,9 +79,9 @@ export default function Header() {
         {/* Top Contact Bar - Dark Slate/Steel Blue */}
         <div className="bg-[#5a7a96] text-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="hidden md:flex justify-end items-center py-2 text-sm pl-20 sm:pl-24 lg:pl-28">
+            <div className="hidden md:flex justify-end items-center gap-x-6 md:gap-x-8 py-2 text-sm pl-20 sm:pl-24 lg:pl-28">
               {/* Contact Information */}
-              <div className="flex items-center gap-x-2 md:gap-x-3 lg:gap-x-6 text-white mr-auto min-w-0">
+              <div className="flex items-center gap-x-2 md:gap-x-3 lg:gap-x-6 text-white min-w-0">
                 <a href="mailto:jeevkutumbfoundation@gmail.com" title="jeevkutumbfoundation@gmail.com" className="flex items-center space-x-1.5 min-w-0 hover:opacity-80 transition-opacity">
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -188,25 +188,13 @@ export default function Header() {
                 </div>
               </div>
             </div>
-            <div className="flex md:hidden items-center justify-between gap-3 py-2 text-sm">
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <Link href="https://twitter.com/jeevkutumb" className="text-white/85 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full" aria-label="JeevKutumb on X">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
-                  </svg>
-                </Link>
-                <Link href="https://www.threads.net/@jeevkutumbfoundation" className="text-white/85 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full" aria-label="JeevKutumb on Threads">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M141.537 88.988a66.667 66.667 0 0 0-2.518-1.143c-1.482-27.307-16.403-42.94-41.457-43.1h-.34c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.348-10.548h.23c8.249.053 14.474 2.452 18.502 7.13 2.932 3.405 4.893 8.11 5.864 14.05-7.314-1.244-15.224-1.626-23.68-1.14-23.82 1.371-39.134 15.264-38.105 34.568.522 9.792 5.4 18.216 13.735 23.719 7.047 4.652 16.124 6.927 25.557 6.412 12.458-.683 22.231-5.436 29.049-14.127 5.178-6.6 8.453-15.153 9.899-25.93 5.937 3.583 10.337 8.298 12.767 13.966 4.132 9.635 4.373 25.468-8.546 38.376-11.319 11.308-24.925 16.2-45.488 16.351-22.809-.169-40.06-7.484-51.275-21.742C35.236 139.966 29.808 120.682 29.605 96c.203-24.682 5.63-43.966 16.133-57.317C56.954 24.425 74.204 17.11 97.013 16.94c22.975.17 40.526 7.52 52.171 21.847 5.71 7.026 10.015 15.86 12.853 26.162l16.147-4.308c-3.44-12.68-8.853-23.606-16.219-32.668C147.036 10.646 125.202 1.205 97.07 1L96.99 1h-.04C68.748 1.205 47.17 10.683 32.853 28.24 20.007 43.949 13.396 66.678 13.171 95.982v.04l-.001.04c.226 29.303 6.837 52.032 19.682 67.74C47.17 181.317 68.748 190.795 96.95 191h.04l.04-.001c24.596-.174 41.826-6.624 55.965-20.887 18.774-18.902 18.213-42.545 12.027-57.114-4.432-10.321-12.6-18.618-23.485-23.01ZM98.44 142.228c-10.424.574-21.24-4.074-21.82-14.189-.426-7.989 5.671-16.91 24.377-17.984 2.138-.123 4.243-.184 6.318-.184 6.604 0 12.798.606 18.423 1.772-2.096 26.108-16.968 29.916-27.298 30.585Z"/>
-                  </svg>
-                </Link>
-              </div>
-              <div className="ml-auto flex min-w-0 items-center justify-end gap-2 text-white">
+            <div className="flex md:hidden items-center justify-end gap-3 py-1.5 text-sm pl-[90px] min-[390px]:pl-[110px] sm:pl-[130px]">
+              <div className="flex items-center gap-2 text-white flex-shrink-0 ml-[32px] min-[390px]:ml-[36px] sm:ml-[40px]">
                 <a href="mailto:jeevkutumbfoundation@gmail.com" title="jeevkutumbfoundation@gmail.com" className="flex min-w-0 items-center gap-1 hover:opacity-80 transition-opacity">
                   <svg className="w-3.5 h-3.5 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="truncate text-[10px] font-medium max-w-[78px] min-[390px]:max-w-[112px]">jeevkutumbfoundation@gmail.com</span>
+                  <span className="truncate text-[10px] font-medium max-w-[54px] [@media(min-width:361px)]:max-w-[70px] min-[390px]:max-w-[100px] sm:max-w-[130px]">jeevkutumbfoundation@gmail.com</span>
                 </a>
                 <a href="tel:+917710075418" className="flex flex-shrink-0 items-center gap-1 hover:opacity-80 transition-opacity">
                   <svg className="w-3.5 h-3.5 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,11 +202,18 @@ export default function Header() {
                   </svg>
                   <span className="text-[10px] font-medium">77100 75418</span>
                 </a>
-                <Link href="https://instagram.com/jeevkutumbfoundation" className="text-white/85 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full flex-shrink-0" aria-label="JeevKutumb on Instagram">
+                <div className="flex items-center gap-1 flex-shrink-0">
+                <Link href="https://twitter.com/jeevkutumb" className="text-white/85 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full" aria-label="JeevKutumb on X">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                  </svg>
+                </Link>
+                <Link href="https://instagram.com/jeevkutumbfoundation" className="text-white/85 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full" aria-label="JeevKutumb on Instagram">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                   </svg>
                 </Link>
+                </div>
               </div>
             </div>
           </div>
