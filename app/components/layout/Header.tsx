@@ -70,6 +70,7 @@ export default function Header() {
                 fill
                 className="object-contain"
                 priority
+                sizes="(min-width: 1024px) 90px, (min-width: 768px) 82px, 68px"
               />
             </div>
             <div className="h-2 lg:h-3" />

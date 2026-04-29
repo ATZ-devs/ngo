@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { env } from "@/lib/config/env";
 import { createPendingDonation, setProviderOrderId } from "@/lib/donations/repository";
+import { normalizePan } from "@/lib/security/pan-validation";
 import { createRazorpayOrder } from "@/lib/payments/razorpay";
 import { consumeRateLimit } from "@/lib/security/rate-limit";
 
@@ -22,6 +23,14 @@ const createPaymentSchema = z.object({
     .positive()
     .max(MAX_DONATION_AMOUNT)
     .refine((value) => Number.isInteger(value * 100), "Amount supports up to 2 decimal places."),
+  panNumber: z
+    .string()
+    .trim()
+    .optional()
+    .refine(
+      (value) => !value || /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i.test(value.trim().toUpperCase()),
+      "Invalid PAN format (expected: AAAPL5055K)"
+    ),
 });
 
 function getRequestIp(req: NextRequest): string {
@@ -65,10 +74,14 @@ export async function POST(req: NextRequest) {
     const provider = "razorpay";
     const currency = "INR";
     const amountMinor = Math.round(input.amountMajor * 100);
+    
+    // Normalize PAN if provided
+    const normalizedPan = input.panNumber ? normalizePan(input.panNumber) : null;
 
     const donation = await createPendingDonation({
       donorName: input.donorName,
       donorEmail: input.donorEmail,
+      panNumber: normalizedPan,
       amountMinor,
       currency,
       countryCode: "IN",

@@ -4,6 +4,7 @@ create table if not exists donations (
   id uuid primary key default gen_random_uuid(),
   donor_name text not null,
   donor_email text not null,
+  pan_number text,
   amount_minor integer not null check (amount_minor > 0),
   currency text not null,
   country_code text not null,

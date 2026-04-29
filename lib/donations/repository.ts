@@ -6,6 +6,7 @@ import type { DonationRow, PaymentEventInput, PaymentProvider } from "@/lib/dona
 interface CreateDonationInput {
   donorName: string;
   donorEmail: string;
+  panNumber?: string | null;
   amountMinor: number;
   currency: string;
   countryCode: string;
@@ -19,6 +20,7 @@ export async function createPendingDonation(input: CreateDonationInput): Promise
     .insert({
       donor_name: input.donorName,
       donor_email: input.donorEmail,
+      pan_number: input.panNumber || null,
       amount_minor: input.amountMinor,
       currency: input.currency,
       country_code: input.countryCode,
@@ -137,19 +139,6 @@ export async function processPaidWebhook(input: PaymentEventInput): Promise<{ pr
     throw new Error(`Failed to mark donation as paid: ${updateError.message}`);
   }
 
-  const { error: jobError } = await supabaseAdmin.from("processing_jobs").upsert(
-    {
-      donation_id: input.donationId,
-      job_type: "receipt_email",
-      status: "queued",
-    },
-    { onConflict: "donation_id,job_type", ignoreDuplicates: true }
-  );
-
-  if (jobError) {
-    throw new Error(`Failed to enqueue receipt job: ${jobError.message}`);
-  }
-
   return { processed: true };
 }
 
@@ -216,52 +205,6 @@ export async function processFailedWebhook(input: PaymentEventInput): Promise<{ 
   }
 
   return { processed: true };
-}
-
-export async function markQueuedReceiptJobCompleted(donationId: string): Promise<void> {
-  const supabaseAdmin = getSupabaseAdmin();
-  const { error } = await supabaseAdmin
-    .from("processing_jobs")
-    .update({
-      status: "completed",
-      last_error: null,
-    })
-    .eq("donation_id", donationId)
-    .eq("job_type", "receipt_email")
-    .in("status", ["queued", "processing"]);
-
-  if (error) {
-    throw new Error(`Failed to complete queued receipt job: ${error.message}`);
-  }
-}
-
-export async function getQueuedJobs(limit = 10): Promise<Array<{ id: string; donation_id: string }>> {
-  const supabaseAdmin = getSupabaseAdmin();
-  const { data, error } = await supabaseAdmin
-    .from("processing_jobs")
-    .select("id,donation_id")
-    .eq("job_type", "receipt_email")
-    .eq("status", "queued")
-    .order("created_at", { ascending: true })
-    .limit(limit);
-
-  if (error) {
-    throw new Error(`Failed to load jobs: ${error.message}`);
-  }
-
-  return (data || []) as Array<{ id: string; donation_id: string }>;
-}
-
-export async function markJobStatus(jobId: string, status: "processing" | "completed" | "failed", errorMessage?: string): Promise<void> {
-  const supabaseAdmin = getSupabaseAdmin();
-  const { error } = await supabaseAdmin
-    .from("processing_jobs")
-    .update({ status, last_error: errorMessage || null })
-    .eq("id", jobId);
-
-  if (error) {
-    throw new Error(`Failed to update job status: ${error.message}`);
-  }
 }
 
 export async function getDonationById(donationId: string): Promise<DonationRow> {

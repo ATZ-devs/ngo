@@ -5,7 +5,7 @@
 - Razorpay is the only payment provider.
 - All donations are processed in INR.
 - Webhooks are the source of truth for payment state.
-- Receipt/email generation runs asynchronously via a queued job.
+- Receipt/email generation runs synchronously on webhook (no background jobs).
 
 ## API Surface
 
@@ -18,16 +18,13 @@
   - Verifies checkout response signature (`order_id|payment_id`) using `RAZORPAY_KEY_SECRET`.
   - Acknowledgement endpoint only; final state is still decided by webhook.
 
-- POST `/api/razorpay-webhook`
+- POST `/api/payments/razorpay/webhook`
   - Accepts raw request body.
   - Verifies `x-razorpay-signature` using `RAZORPAY_WEBHOOK_SECRET`.
   - Handles `payment.captured` and `payment.failed`.
   - Uses idempotent event persistence (`provider, provider_event_id`).
-  - Returns quickly to avoid provider retries.
-
-- POST `/api/jobs/receipt-email`
-  - Protected by `Authorization: Bearer <DONATION_JOBS_SECRET|CRON_SECRET>`.
-  - Processes queued receipt jobs.
+  - **On payment.captured**: Immediately generates receipt PDF, uploads to storage, and sends email via Resend.
+  - Returns HTTP 200 to acknowledge receipt (emails handled internally).
 
 ## Data Model Notes
 
@@ -40,8 +37,9 @@
   - Idempotency key: unique `(provider, provider_event_id)`.
   - Stores webhook payload for auditability.
 
-- `processing_jobs`
-  - Receipt/email jobs (`receipt_email`) with queue semantics.
+- `email_deliveries`
+  - Tracks email send status: `queued | sent | failed`.
+  - References donation for audit trail.
 
 ## Folder Structure
 
@@ -58,36 +56,47 @@
   - Receipt PDF generation.
 
 - `app/api/razorpay-order/route.ts`
+  - Creates donation and Razorpay order.
+
 - `app/api/razorpay-verify/route.ts`
-- `app/api/razorpay-webhook/route.ts`
+  - Verifies checkout signature (frontend acknowledgement).
+
+- `app/api/payments/razorpay/webhook/route.ts`
+  - Webhook handler: processes payment events and sends receipts synchronously.
 
 ## Environment Variables
 
-Required:
+**Core (Required)**:
+- `RAZORPAY_KEY_ID` - Razorpay API key ID
+- `RAZORPAY_KEY_SECRET` - Razorpay API secret key
+- `RAZORPAY_WEBHOOK_SECRET` - Webhook signature verification secret
+- `RESEND_API_KEY` - Email service API key
+- `DONATION_EMAIL_FROM` - Sender email address
+- `SUPABASE_URL` - Database URL
+- `SUPABASE_SERVICE_ROLE_KEY` - Admin database token
 
-- `RAZORPAY_KEY_ID`
-- `RAZORPAY_KEY_SECRET`
-- `RAZORPAY_WEBHOOK_SECRET`
-- `RESEND_API_KEY`
-- `DONATION_EMAIL_FROM`
-
-Operational:
-
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `DONATION_JOBS_SECRET`
-- `CRON_SECRET`
-- `SUPABASE_RECEIPTS_BUCKET`
-- `SUPABASE_DOCUMENTS_BUCKET`
-- `SUPABASE_STATIC_NGO_DOCUMENT_PATH`
+**Optional (with sensible defaults)**:
+- `APP_BASE_URL` - Base URL for email links (default: `http://localhost:3000`)
+- `SUPABASE_RECEIPTS_BUCKET` - Storage bucket for receipts (default: `receipts`)
+- `SUPABASE_DOCUMENTS_BUCKET` - Storage bucket for documents (default: `documents`)
+- `SUPABASE_STATIC_NGO_DOCUMENT_PATH` - Path to 80G document (default: `docs/80G.pdf`)
+- `NGO_NAME` - Organization name for receipts
+- `NGO_REGISTRATION_NUMBER` - Registration number for receipts
+- `NGO_PAN` - PAN for receipts
 
 ## End-to-End Flow
 
-1. Donor submits form.
-2. Backend creates Razorpay order (`INR`) and pending donation record.
-3. Frontend opens Razorpay checkout.
-4. Frontend posts checkout response to `/api/razorpay-verify`.
-5. Razorpay sends webhook event.
-6. Backend verifies webhook signature and applies idempotent state transition.
-7. For successful capture, backend enqueues `receipt_email` job.
-8. Job worker generates receipt PDF, attaches static NGO document, and sends email via Resend.
+1. Donor submits form on `/donate` page.
+2. Frontend calls POST `/api/razorpay-order` to create donation and Razorpay order.
+3. Backend returns order details for checkout.
+4. Frontend opens Razorpay checkout modal.
+5. After payment, frontend calls POST `/api/razorpay-verify` to verify signature.
+6. Razorpay sends webhook event to `/api/payments/razorpay/webhook`.
+7. Backend verifies webhook signature and applies idempotent state transition.
+8. **On payment.captured**: Backend immediately:
+   - Generates receipt PDF with NGO info
+   - Uploads receipt to Supabase Storage
+   - Downloads static 80G document
+   - Sends receipt email via Resend with both attachments
+   - Creates email_deliveries record with status=`sent` or `failed`
+9. Donor receives email within seconds with receipt and 80G certificate.

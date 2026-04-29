@@ -88,6 +88,7 @@ export default function DonatePage() {
           donorName: formData.fullName,
           donorEmail: formData.email,
           amountMajor,
+          panNumber: formData.panNumber,
         }),
       });
 

@@ -8,6 +8,7 @@ export interface DonationRow {
   id: string;
   donor_name: string;
   donor_email: string;
+  pan_number: string | null;
   amount_minor: number;
   currency: string;
   country_code: string;

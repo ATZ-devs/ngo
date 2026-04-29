@@ -183,9 +183,9 @@ Donor Payment → Payment Gateway → Webhook Verification → Database Update �
 - Vercel automatically provisions SSL certificate
 
 **Environment Variables in Production**:
-- Add all `.env.local` variables to Vercel project settings
+- Add all required variables to Vercel project settings
 - Use live API keys for Razorpay (not test keys)
-- Set both `DONATION_JOBS_SECRET` and `CRON_SECRET` to strong random values
+- Store sensitive keys in Vercel dashboard, not in code
 
 ---
 
