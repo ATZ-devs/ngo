@@ -29,17 +29,6 @@ create table if not exists payment_events (
   unique (provider, provider_event_id)
 );
 
-create table if not exists processing_jobs (
-  id uuid primary key default gen_random_uuid(),
-  donation_id uuid not null references donations(id) on delete cascade,
-  job_type text not null,
-  status text not null default 'queued' check (status in ('queued', 'processing', 'completed', 'failed')),
-  last_error text,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-  unique (donation_id, job_type)
-);
-
 create table if not exists receipts (
   id uuid primary key default gen_random_uuid(),
   donation_id uuid not null unique references donations(id) on delete cascade,
@@ -61,7 +50,6 @@ create table if not exists email_deliveries (
 create index if not exists donations_status_created_idx on donations(status, created_at);
 create index if not exists donations_email_idx on donations(donor_email);
 create index if not exists payment_events_donation_idx on payment_events(donation_id);
-create index if not exists processing_jobs_status_idx on processing_jobs(status, created_at);
 
 create or replace function set_updated_at()
 returns trigger as $$
@@ -74,11 +62,5 @@ $$ language plpgsql;
 drop trigger if exists donations_set_updated_at on donations;
 create trigger donations_set_updated_at
 before update on donations
-for each row
-execute function set_updated_at();
-
-drop trigger if exists processing_jobs_set_updated_at on processing_jobs;
-create trigger processing_jobs_set_updated_at
-before update on processing_jobs
 for each row
 execute function set_updated_at();

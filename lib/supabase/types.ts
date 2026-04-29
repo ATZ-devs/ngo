@@ -80,34 +80,6 @@ export interface Database {
         };
         Relationships: [];
       };
-      processing_jobs: {
-        Row: {
-          id: string;
-          donation_id: string;
-          job_type: string;
-          status: "queued" | "processing" | "completed" | "failed";
-          last_error: string | null;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          donation_id: string;
-          job_type: string;
-          status?: "queued" | "processing" | "completed" | "failed";
-          last_error?: string | null;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          donation_id?: string;
-          job_type?: string;
-          status?: "queued" | "processing" | "completed" | "failed";
-          last_error?: string | null;
-          updated_at?: string;
-        };
-        Relationships: [];
-      };
       receipts: {
         Row: {
           id: string;
