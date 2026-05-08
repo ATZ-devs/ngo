@@ -14,8 +14,14 @@ export default function About() {
               <div>
                 <h1 className="heading-section text-gray-900 text-left mb-4">About Us</h1>
                 <div className="w-20 h-1 bg-gray-800 mb-8"></div>
+                <p className="text-lg text-gray-700 leading-relaxed font-serif mb-6">
+                  Jeevkutumb Foundation is a registered Section 8 company incorporated under the Companies Act, 2013, working towards charitable and social welfare objectives.
+                </p>
+                <p className="text-lg text-gray-700 leading-relaxed font-serif mb-6">
+                  Jeevkutumb Foundation was established in 2025, but its roots trace back over three decades of personal, hands-on involvement in social causes by its founding members. Long before it became a registered entity, the individuals behind Jeevkutumb were actively engaged in blood donation drives across Maharashtra, educational support for underprivileged children, animal welfare initiatives including feeding and caring for stray animals, and disaster relief efforts during emergencies like floods. Their dedication was never tied to recognition; they served because they believed in the power of compassion and community.
+                </p>
                 <p className="text-lg text-gray-700 leading-relaxed font-serif">
-                  Jeevkutumb Foundation was established in 2025, but its roots trace back over three decades of personal, hands-on involvement in social causes by its founding members. Long before it became a registered entity, the individuals behind Jeevkutumb were actively engaged in blood donation drives across Maharashtra, educational support for underprivileged children, animal welfare initiatives including feeding and caring for stray animals, and disaster relief efforts during emergencies like floods. Their dedication was never tied to recognition - they served because they believed in the power of compassion and community. With the formal launch of Jeevkutumb Foundation, these years of grassroots experience, relationships, and commitment have now been channeled into a structured mission. Today, the Foundation carries forward that same spirit - with greater reach, more resources, and a deeper resolve to create lasting impact in the lives of the people and communities who need it most.
+                  With the formal launch of Jeevkutumb Foundation, these years of grassroots experience, relationships, and commitment have now been channelled into a structured mission. Today, the Foundation carries forward that same spirit, with greater reach, more resources, and a deeper resolve to create lasting impact in the lives of the people and communities who need it most.
                 </p>
               </div>
 

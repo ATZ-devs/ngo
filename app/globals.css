@@ -67,6 +67,7 @@ body {
   font-family: var(--font-playfair-display), Georgia, serif;
   font-feature-settings: "rlig" 1, "calt" 1;
   overflow-x: hidden;
+  text-align: justify;
 }
 
 /* Custom Component Styles */

@@ -38,7 +38,8 @@ export default function DonatePage() {
     city: "",
     state: "",
     country: "INDIA",
-    panNumber: ""
+    panNumber: "",
+    termsAccepted: false
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -73,6 +74,10 @@ export default function DonatePage() {
     setSubmitMessage(null);
 
     try {
+      if (!formData.termsAccepted) {
+        throw new Error("Please tick the declaration checkbox before proceeding to payment.");
+      }
+
       const amountMajor = Number(formData.donationAmount);
 
       if (!amountMajor || amountMajor <= 0) {
@@ -471,7 +476,8 @@ export default function DonatePage() {
                     <input
                       type="checkbox"
                       id="declaration"
-                      defaultChecked
+                      checked={formData.termsAccepted}
+                      onChange={(e) => setFormData(prev => ({ ...prev, termsAccepted: e.target.checked }))}
                       className="w-4 h-4 text-[#6D8BA3] border-gray-300 rounded focus:ring-[#6D8BA3] mt-1 flex-shrink-0"
                     />
                     <label htmlFor="declaration" className="text-sm text-gray-700 leading-relaxed">

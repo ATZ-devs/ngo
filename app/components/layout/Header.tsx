@@ -44,8 +44,31 @@ export default function Header() {
     { title: "Mental Health Awareness", href: "/mental-health" },
   ];
 
+  const allPages = [
+    { title: "Healthcare", href: "/healthcare", keywords: "healthcare medical health doctor medicine hospital camp checkup vaccination" },
+    { title: "Education", href: "/education", keywords: "education school student scholarship learning books stationery" },
+    { title: "Skill Development", href: "/skill-development", keywords: "skill training vocational job employment digital literacy" },
+    { title: "Women Empowerment", href: "/women-empowerment", keywords: "women empowerment self-help microfinance leadership" },
+    { title: "Child Welfare", href: "/child-welfare", keywords: "child children welfare protection nutrition" },
+    { title: "Senior Citizen Care", href: "/senior-citizen-care", keywords: "senior citizen elderly care old age" },
+    { title: "Poverty Relief", href: "/poverty-relief", keywords: "poverty relief food assistance livelihood" },
+    { title: "Disaster Relief", href: "/disaster-relief", keywords: "disaster relief emergency rescue flood earthquake" },
+    { title: "Environmental Protection", href: "/environmental-protection", keywords: "environment protection tree plantation waste green sustainability" },
+    { title: "Mental Health Awareness", href: "/mental-health", keywords: "mental health counseling therapy wellness awareness" },
+    { title: "Donate", href: "/donate", keywords: "donate donation payment 80G tax save contribute" },
+    { title: "About Us", href: "/about", keywords: "about us mission team foundation history" },
+    { title: "Our Programs", href: "/programs", keywords: "programs initiatives what we do impact" },
+    { title: "How to Save Tax", href: "/tax-savings", keywords: "tax savings 80G deduction income tax benefit" },
+    { title: "Volunteering & Internships", href: "/volunteering", keywords: "volunteer internship volunteering join" },
+    { title: "Corporate Partnerships", href: "/corporate-partnerships", keywords: "corporate partnership CSR company business" },
+    { title: "Contact", href: "/contact", keywords: "contact us get in touch reach" },
+  ];
+
   const suggestions = searchQuery.trim().length > 0
-    ? whatWeDoPages.filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? allPages.filter(p =>
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.keywords.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     : [];
 
   const handleSearch = (e: React.FormEvent) => {
